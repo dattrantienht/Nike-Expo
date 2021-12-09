@@ -6,6 +6,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Nike Expo App</Text>
+      <Text>Github Action in action!</Text>
       <StatusBar style="auto" />
     </View>
   );
