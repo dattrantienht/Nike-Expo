@@ -1,18 +1,26 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { 
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem, 
+} from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 import Login from './components/Login';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 function com1(){
   return(
@@ -50,6 +58,66 @@ function com5(){
   );
 }
 
+
+function CustomDrawerContent(props) {
+  return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props} />
+      <DrawerItem 
+        label="com2" 
+        onPress={() => props.navigation.navigate('com2')}
+        icon={({focused, color, size}) =><MaterialCommunityIcons name="alien-outline" size={size} color={color} />}
+      />
+       <DrawerItem 
+        label="com3" 
+        onPress={() => props.navigation.navigate('com3')}
+        icon={({focused, color, size}) =><MaterialCommunityIcons name="atom" size={size} color={color} />}
+      />
+      <DrawerItem 
+        label="Login" 
+        onPress={() => props.navigation.navigate('login')}
+        icon={({focused, color, size}) =><MaterialCommunityIcons name="login" size={size} color={color} />}
+      />
+    </DrawerContentScrollView>
+  );
+}
+
+function StackNav(){
+  return(
+    <Stack.Navigator>
+      <Stack.Screen name="DrawerNav" component={DrawerNav} options={{headerShown: false}} />
+      <Stack.Screen name="com2" component={com2} />
+      <Stack.Screen name="com3" component={com3} />
+      <Stack.Screen name="login" component={Login} />
+    </Stack.Navigator>
+  )
+}
+
+function DrawerNav(){
+  return(
+    <Drawer.Navigator
+    drawerContent={(props) => <CustomDrawerContent {...props} />}
+    initialRouteName="Home"
+    screenOptions = {
+      {
+        headerShown: false
+      }
+    }
+  >
+    <Drawer.Screen 
+      name="TabNav" 
+      component={TabNav}
+      options={
+        {
+          title: 'Home',
+          drawerIcon: ({focused, color, size}) =><AntDesign name="home" size={size} color={color} />
+        }
+      }
+    />
+     
+  </Drawer.Navigator>
+  )
+}
 
 function TabNav({navigation}) {
   return (
@@ -126,36 +194,7 @@ export default function App() {
   return (
 
       <NavigationContainer>
-        <Drawer.Navigator 
-          initialRouteName="Home"
-          screenOptions = {
-            {
-              headerTitle: () => null,
-              headerShown: false
-            }
-          }
-        >
-          <Drawer.Screen 
-            name="TabNav" 
-            component={TabNav}
-            options={
-              {
-                title: 'Home',
-                drawerIcon: ({focused, color, size}) =><AntDesign name="home" size={size} color={color} />
-              }
-            }
-          />
-          <Drawer.Screen 
-            name="Login" 
-            component={Login} 
-            options={
-              {
-                title: 'Login',
-                drawerIcon: ({focused, color, size}) =><AntDesign name="login" size={size} color={color} />
-              }
-            }
-          />
-        </Drawer.Navigator>
+        <StackNav/>
       </NavigationContainer>
 
   );
