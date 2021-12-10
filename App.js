@@ -1,6 +1,7 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { useColorScheme } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, TouchableOpacity } from 'react-native';
 import { 
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -9,12 +10,14 @@ import {
 } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, DarkTheme,} from '@react-navigation/native';
 
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
+
+import ami from './assets/ami.png'
 
 import Login from './components/Login';
 
@@ -23,9 +26,11 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 function com1(){
+  const scheme = useColorScheme();
   return(
     <View style={styles.container}>
       <Text>Component 1</Text>
+      <Text>{scheme}</Text>
     </View>
   );
 }
@@ -58,6 +63,11 @@ function com5(){
   );
 }
 
+function LogoTitle() {
+  return (
+    <Image source={ami} style={{ width: 50, height: 50 }} /> 
+  );
+}
 
 function CustomDrawerContent(props) {
   return (
@@ -127,10 +137,11 @@ function TabNav({navigation}) {
           {
             tabBarShowLabel : false,
             headerLeft: () => (
-              
-              <Button title="Open drawer" onPress={() => navigation.openDrawer()}>
-                <FontAwesome5 name="user-circle" size={24} color="black" />
-              </Button>
+                <TouchableOpacity
+                onPress={() => navigation.openDrawer()}
+                style={{ marginLeft:10 }}>
+                  <LogoTitle/>
+                </TouchableOpacity>
             )
           }
         }
@@ -191,9 +202,10 @@ function TabNav({navigation}) {
 }
 
 export default function App() {
+  const scheme = useColorScheme();
   return (
 
-      <NavigationContainer>
+      <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
         <StackNav/>
       </NavigationContainer>
 
@@ -203,8 +215,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
+    backgroundColor:'#fff',
     justifyContent: 'center',
   },
 });
