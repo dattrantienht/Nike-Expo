@@ -135,7 +135,8 @@ function TabNav({navigation}) {
             tabBarShowLabel : false,
             headerLeft: () => (
                 <TouchableOpacity
-                onPress={() => navigation.openDrawer()}>
+                onPress={() => navigation.openDrawer()}
+                style={{ marginLeft:10 }}>
                   <LogoTitle/>
                 </TouchableOpacity>
             )
