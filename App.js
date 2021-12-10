@@ -6,8 +6,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { AntDesign } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 
@@ -53,13 +51,19 @@ function com5(){
 }
 
 
-function TabNav() {
+function TabNav({navigation}) {
   return (
 
       <Tab.Navigator
         screenOptions = {
           {
-            tabBarShowLabel : false
+            tabBarShowLabel : false,
+            headerLeft: () => (
+              
+              <Button title="Open drawer" onPress={() => navigation.openDrawer()}>
+                <FontAwesome5 name="user-circle" size={24} color="black" />
+              </Button>
+            )
           }
         }
       >
@@ -126,7 +130,8 @@ export default function App() {
           initialRouteName="Home"
           screenOptions = {
             {
-              headerTitle: () => null
+              headerTitle: () => null,
+              headerShown: false
             }
           }
         >
