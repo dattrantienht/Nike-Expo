@@ -2,11 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
-export default function Login() {
+export default function tabulaRasa() {
   const { colors } = useTheme();
     return (
       <View style={[styles.container,{backgroundColor:colors.background}]}>
-        <Text style={[styles.text,{color:colors.text}]}>Login Screen</Text>
+        <Text style={[styles.text,{color:colors.text}]}>Tabula Rasa Screen</Text>
       </View>
     );
   }

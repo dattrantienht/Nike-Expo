@@ -1,7 +1,13 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { useColorScheme } from 'react-native';
-import { StyleSheet, Text, View, Button, Image, TouchableOpacity } from 'react-native';
+import { 
+  StyleSheet, 
+  useColorScheme,
+  Text, 
+  View, 
+  Image, 
+  TouchableOpacity 
+} from 'react-native';
 import { 
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -10,7 +16,7 @@ import {
 } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer, DefaultTheme, DarkTheme,} from '@react-navigation/native';
+import { NavigationContainer, useTheme, DefaultTheme, DarkTheme,} from '@react-navigation/native';
 
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -20,45 +26,53 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import ami from './assets/ami.png'
 
 import Login from './components/Login';
+import tabulaRasa from './components/tabulaRasa';
+import Home from './components/Home';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-function com1(){
+
+function showTheme(){
+  const { colors } = useTheme();
   const scheme = useColorScheme();
   return(
     <View style={styles.container}>
-      <Text>Component 1</Text>
-      <Text>{scheme}</Text>
+      <Text style={{color:colors.text}}>Detect theme</Text>
+      <Text style={{color:colors.text}}>Device is using {scheme} theme</Text>
     </View>
   );
 }
 function com2(){
+  const { colors } = useTheme();
   return(
     <View style={styles.container}>
-      <Text>Component 2</Text>
+      <Text style={[styles.text,{color:colors.text}]}>Component 2</Text>
     </View>
   );
 }
 function com3(){
+  const { colors } = useTheme();
   return(
     <View style={styles.container}>
-      <Text>Component 3</Text>
+      <Text style={[styles.text,{color:colors.text}]}>Component 3</Text>
     </View>
   );
 }
 function com4(){
+  const { colors } = useTheme();
   return(
     <View style={styles.container}>
-      <Text>Component 4</Text>
+      <Text style={[styles.text,{color:colors.text}]}>Component 4</Text>
     </View>
   );
 }
 function com5(){
+  const { colors } = useTheme();
   return(
     <View style={styles.container}>
-      <Text>Component 5</Text>
+      <Text style={[styles.text,{color:colors.text}]}>Component 5</Text>
     </View>
   );
 }
@@ -74,13 +88,13 @@ function CustomDrawerContent(props) {
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
       <DrawerItem 
-        label="com2" 
-        onPress={() => props.navigation.navigate('com2')}
+        label="Show Theme" 
+        onPress={() => props.navigation.navigate('showTheme')}
         icon={({focused, color, size}) =><MaterialCommunityIcons name="alien-outline" size={size} color={color} />}
       />
        <DrawerItem 
-        label="com3" 
-        onPress={() => props.navigation.navigate('com3')}
+        label="Tabula Rasa" 
+        onPress={() => props.navigation.navigate('Tabula Rasa')}
         icon={({focused, color, size}) =><MaterialCommunityIcons name="atom" size={size} color={color} />}
       />
       <DrawerItem 
@@ -96,8 +110,8 @@ function StackNav(){
   return(
     <Stack.Navigator>
       <Stack.Screen name="DrawerNav" component={DrawerNav} options={{headerShown: false}} />
-      <Stack.Screen name="com2" component={com2} />
-      <Stack.Screen name="com3" component={com3} />
+      <Stack.Screen name="showTheme" component={showTheme} />
+      <Stack.Screen name="Tabula Rasa" component={tabulaRasa} />
       <Stack.Screen name="login" component={Login} />
     </Stack.Navigator>
   )
@@ -130,6 +144,7 @@ function DrawerNav(){
 }
 
 function TabNav({navigation}) {
+  const { colors } = useTheme();
   return (
 
       <Tab.Navigator
@@ -147,8 +162,8 @@ function TabNav({navigation}) {
         }
       >
         <Tab.Screen 
-          name="Com1" 
-          component={com1}
+          name="Home" 
+          component={Home}
           options={
             {
               title: 'Home',
@@ -203,6 +218,7 @@ function TabNav({navigation}) {
 
 export default function App() {
   const scheme = useColorScheme();
+  
   return (
 
       <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
@@ -213,10 +229,8 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor:'#fff',
-    justifyContent: 'center',
-  },
+  container: {flex: 1, alignItems: 'center', justifyContent: 'center'},
+  text:{
+    fontSize:18,
+  }
 });

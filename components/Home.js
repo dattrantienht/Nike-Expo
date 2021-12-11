@@ -1,12 +1,14 @@
 import React from 'react';
-import { FontAwesome } from '@expo/vector-icons'; 
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet,StatusBar, Text, View } from 'react-native';
+import {useTheme} from '@react-navigation/native';
 
-export default function Home() {
+export default function home() {
+  const { colors } = useTheme();
+
     return (
-      <View style={styles.container}>
-        <FontAwesome name="home" size={24} color="black" />
-        <Text >Home Screen</Text>
+      <View style={[styles.container,{backgroundColor:colors.background}]}>
+        <StatusBar/>
+        <Text style={[styles.text,{color:colors.text}]}>Home Screen</Text>
       </View>
     );
   }
@@ -14,8 +16,10 @@ export default function Home() {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
     },
+    text:{
+      fontSize:18,
+    }
   });
