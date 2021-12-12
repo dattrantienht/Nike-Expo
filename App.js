@@ -3,8 +3,6 @@ import React from 'react';
 import { 
   StyleSheet, 
   useColorScheme,
-  Text, 
-  View, 
   Image, 
   TouchableOpacity 
 } from 'react-native';
@@ -22,65 +20,26 @@ import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
-import ami from './assets/ami.png'
+import nike from './assets/nike.png'
 
 import login from './components/Login';
-import tabulaRasa from './components/tabulaRasa';
-import home from './components/Home';
 import cat from './components/Cat';
+import product from './components/Product';
+import productCategory from './components/ProductCategory';
+import shop from './components/Shop';
+import userManage from './components/UserManage';
+import team from './components/Team';
+import chat from './components/Chat';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-
-function showTheme(){
-  const { colors } = useTheme();
-  const scheme = useColorScheme();
-  return(
-    <View style={styles.container}>
-      <Text style={{color:colors.text}}>Detect theme</Text>
-      <Text style={{color:colors.text}}>Device is using {scheme} theme</Text>
-    </View>
-  );
-}
-function com2(){
-  const { colors } = useTheme();
-  return(
-    <View style={styles.container}>
-      <Text style={[styles.text,{color:colors.text}]}>Component 2</Text>
-    </View>
-  );
-}
-function com3(){
-  const { colors } = useTheme();
-  return(
-    <View style={styles.container}>
-      <Text style={[styles.text,{color:colors.text}]}>Component 3</Text>
-    </View>
-  );
-}
-function com4(){
-  const { colors } = useTheme();
-  return(
-    <View style={styles.container}>
-      <Text style={[styles.text,{color:colors.text}]}>Component 4</Text>
-    </View>
-  );
-}
-function com5(){
-  const { colors } = useTheme();
-  return(
-    <View style={styles.container}>
-      <Text style={[styles.text,{color:colors.text}]}>Component 5</Text>
-    </View>
-  );
-}
-
 function LogoTitle() {
   return (
-    <Image source={ami} style={{ width: 50, height: 50 }} /> 
+    <Image source={nike} style={{ width: 70, height: 30 }} /> 
   );
 }
 
@@ -89,24 +48,29 @@ function CustomDrawerContent(props) {
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
         <DrawerItem 
-          label="Show Theme" 
-          onPress={() => props.navigation.navigate('showTheme')}
-          icon={({focused, color, size}) =><MaterialCommunityIcons name="alien-outline" size={size} color={color} />}
+          label="Team"
+          onPress={() => props.navigation.navigate('Team')}
+          icon={({color, size}) =><AntDesign name="team" size={size} color={color} />}
         />
         <DrawerItem 
-          label="Tabula Rasa" 
-          onPress={() => props.navigation.navigate('Tabula Rasa')}
-          icon={({focused, color, size}) =><MaterialCommunityIcons name="atom" size={size} color={color} />}
+          label="Product"
+          onPress={() => props.navigation.navigate('Product')}
+          icon={({color, size}) =><AntDesign name="barcode" size={size} color={color} />}
         />
-         <DrawerItem 
-          label="Cat"
-          onPress={() => props.navigation.navigate('Cat')}
-          icon={({focused, color, size}) =><MaterialCommunityIcons name="cat" size={size} color={color} />}
+        <DrawerItem 
+          label="Product Category"
+          onPress={() => props.navigation.navigate('Product Category')}
+          icon={({color, size}) =><Entypo name="bookmarks" size={size} color={color} />}
+        />
+        <DrawerItem 
+          label="User Manage"
+          onPress={() => props.navigation.navigate('User Manage')}
+          icon={({color, size}) =><FontAwesome5 name="users-cog" size={size} color={color} />}
         />
         <DrawerItem 
           label="Login" 
           onPress={() => props.navigation.navigate('login')}
-          icon={({focused, color, size}) =><MaterialCommunityIcons name="login" size={size} color={color} />}
+          icon={({color, size}) =><MaterialCommunityIcons name="login" size={size} color={color} />}
         />
     </DrawerContentScrollView>
   );
@@ -116,9 +80,10 @@ function StackNav(){
   return(
     <Stack.Navigator>
       <Stack.Screen name="DrawerNav" component={DrawerNav} options={{headerShown: false}} />
-      <Stack.Screen name="showTheme" component={showTheme} />
-      <Stack.Screen name="Cat" component={cat} />
-      <Stack.Screen name="Tabula Rasa" component={tabulaRasa} />
+      <Stack.Screen name="Team" component={team} />
+      <Stack.Screen name="Product" component={product} />
+      <Stack.Screen name="Product Category" component={productCategory} />
+      <Stack.Screen name="User Manage" component={userManage} />
       <Stack.Screen name="login" component={login} />
     </Stack.Navigator>
   )
@@ -134,19 +99,20 @@ function DrawerNav(){
         headerShown: false
       }
     }
-  >
-    <Drawer.Screen 
-      name="TabNav" 
-      component={TabNav}
-      options={
-        {
-          title: 'Home',
-          drawerIcon: ({focused, color, size}) =><AntDesign name="home" size={size} color={color} />
+    >
+
+      <Drawer.Screen 
+        name="TabNav" 
+        component={TabNav}
+        options={
+          {
+            title: 'Home',
+            drawerIcon: ({focused, color, size}) =><AntDesign name="home" size={size} color={color} />
+          }
         }
-      }
-    />
+      />
      
-  </Drawer.Navigator>
+    </Drawer.Navigator>
   )
 }
 
@@ -160,8 +126,9 @@ function TabNav({navigation}) {
             tabBarShowLabel : false,
             headerLeft: () => (
                 <TouchableOpacity
-                onPress={() => navigation.openDrawer()}
-                style={{ marginLeft:10 }}>
+                  onPress={() => navigation.openDrawer()}
+                  style={{ marginLeft:5 }}
+                >
                   <LogoTitle/>
                 </TouchableOpacity>
             )
@@ -169,52 +136,32 @@ function TabNav({navigation}) {
         }
       >
         <Tab.Screen 
-          name="Home" 
+          name="Shop" 
+          component={shop}
+          options={
+            {
+              title: 'Shop',
+              tabBarIcon: ({color, size}) =><FontAwesome5 name="amazon" size={size} color={color} />,
+            }
+          }
+        />
+        <Tab.Screen 
+          name="Cat" 
           component={cat}
           options={
             {
-              title: 'Home',
-              tabBarIcon: ({focused, color, size}) =><FontAwesome5 name="home" size={size} color={color} />,
+              title: 'Cat',
+              tabBarIcon: ({color, size}) =><MaterialCommunityIcons name="cat" size={size} color={color} />,
             }
           }
         />
         <Tab.Screen 
-          name="Com2" 
-          component={com2}
-          options={
-            {
-              title: 'Products',
-              tabBarIcon: ({focused, color, size}) =><FontAwesome5 name="amazon" size={size} color={color} />,
-            }
-          }
-        />
-        <Tab.Screen 
-          name="Com3" 
-          component={com3}
-          options={
-            {
-              title: 'Users',
-              tabBarIcon: ({focused, color, size}) =><FontAwesome5 name="users-cog" size={size} color={color} />,
-            }
-          }
-        />
-        <Tab.Screen 
-          name="Com4" 
-          component={com4}
-          options={
-            {
-              title: 'Teams',
-              tabBarIcon: ({focused, color, size}) =><AntDesign name="github" size={size} color={color} />,
-            }
-          }
-        />
-        <Tab.Screen 
-          name="Com5" 
-          component={com5}
+          name="Chat" 
+          component={chat}
           options={
             {
               title: 'Chat',
-              tabBarIcon: ({focused, color, size}) =><MaterialIcons name="message" size={size} color={color} />,
+              tabBarIcon: ({color, size}) =><MaterialIcons name="message" size={size} color={color} />,
             }
           }
         />

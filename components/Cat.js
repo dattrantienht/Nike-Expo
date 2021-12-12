@@ -11,7 +11,6 @@ async function getCatFact() {
     try {
         const response = await axios.get('https://catfact.ninja/fact');
         catFact = response.data.fact;
-        console.log(catFact);
     } catch (error) {
         console.error(error);
     }
@@ -21,7 +20,6 @@ async function getCatImage() {
     try {
         const response = await axios.get('https://api.thecatapi.com/v1/images/search');
         catImageUri = response.data[0].url;
-        console.log(catImageUri);
     } catch (error) {
         console.error(error);
     }
@@ -46,7 +44,9 @@ export default function cat() {
         <Image source={{
           uri: image
         }} style={{marginBottom:10 , width: width *0.9, height: height*0.5, resizeMode: 'cover', overflow: 'visible' }} /> 
-        <Text style={{color:colors.text,fontSize:15,fontWeight:"bold"}}>Ramdom Cat Fact:</Text>
+        <Text style={{color:colors.text,fontSize:15,fontWeight:"bold"}}>
+          Random Cat Fact:
+        </Text>
         <Text style={[styles.text,{color:colors.text,margin:10}]}>{fact}</Text>
         <TouchableOpacity
             onPress={toggle}
