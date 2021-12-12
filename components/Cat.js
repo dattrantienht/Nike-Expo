@@ -43,7 +43,7 @@ export default function cat() {
       <View style={[styles.container,{backgroundColor:colors.background}]}>
         <Image source={{
           uri: image
-        }} style={{marginBottom:10 , width: width *0.9, height: height*0.5, resizeMode: 'cover', overflow: 'visible' }} /> 
+        }} style={{marginBottom:10 , width: height *0.4, height: height*0.4, resizeMode: 'cover', overflow: 'visible' }} /> 
         <Text style={{color:colors.text,fontSize:15,fontWeight:"bold"}}>
           Random Cat Fact:
         </Text>
