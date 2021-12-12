@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Button} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
 let catFact;
+let catImageUri;
 
 async function getCatFact() {
     try {
@@ -15,20 +16,43 @@ async function getCatFact() {
     }
 }
 
+async function getCatImage() {
+    try {
+        const response = await axios.get('https://api.thecatapi.com/v1/images/search');
+        catImageUri = response.data[0].url;
+        console.log(catImageUri);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 export default function cat() {
     const { colors } = useTheme();
     const [fact, setFact] = useState('loading');
+    const [image, setImage] = useState(' ');
+    const [mounted, setMounted] = useState(true);
+    const toggle = () => setMounted(!mounted);
+
     useEffect( async ()=>{
         await getCatFact();
-        console.log('cat fact in cat component:'+catFact);
         setFact(catFact);
-    },[]);
+        await getCatImage();
+        setImage(catImageUri);
+    },[mounted]);
 
     return (
       <View style={[styles.container,{backgroundColor:colors.background}]}>
-        <Text style={[styles.text,{color:colors.text}]}>Ramdom Cat Fact:</Text>
-        <Text style={[styles.text,{color:colors.text}]}>{fact}</Text>
-      </View>
+        <Image source={{
+          uri: image
+        }} style={{marginBottom:10 , width: 300, height: 300 }} /> 
+        <Text style={{color:colors.text,fontSize:15,fontWeight:"bold"}}>Ramdom Cat Fact:</Text>
+        <Text style={[styles.text,{color:colors.text,margin:10}]}>{fact}</Text>
+        <TouchableOpacity
+            onPress={toggle}
+            style={{ backgroundColor: colors.primary, padding:5 }}>
+            <Text style={{ fontSize: 20, color: colors.text }}>Get more cats</Text>
+        </TouchableOpacity>
+    </View>
     );
   }
   
