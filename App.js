@@ -170,7 +170,7 @@ function TabNav({navigation}) {
       >
         <Tab.Screen 
           name="Home" 
-          component={home}
+          component={cat}
           options={
             {
               title: 'Home',

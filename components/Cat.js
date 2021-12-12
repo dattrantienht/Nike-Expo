@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Button} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
+var {height, width} = Dimensions.get('window');
 let catFact;
 let catImageUri;
 
@@ -44,7 +45,7 @@ export default function cat() {
       <View style={[styles.container,{backgroundColor:colors.background}]}>
         <Image source={{
           uri: image
-        }} style={{marginBottom:10 , width: 300, height: 300 }} /> 
+        }} style={{marginBottom:10 , width: width *0.9, height: height*0.5, resizeMode: 'cover', overflow: 'visible' }} /> 
         <Text style={{color:colors.text,fontSize:15,fontWeight:"bold"}}>Ramdom Cat Fact:</Text>
         <Text style={[styles.text,{color:colors.text,margin:10}]}>{fact}</Text>
         <TouchableOpacity
