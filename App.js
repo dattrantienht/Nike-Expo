@@ -25,9 +25,10 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 import ami from './assets/ami.png'
 
-import Login from './components/Login';
+import login from './components/Login';
 import tabulaRasa from './components/tabulaRasa';
-import Home from './components/Home';
+import home from './components/Home';
+import cat from './components/Cat';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -87,21 +88,26 @@ function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
-      <DrawerItem 
-        label="Show Theme" 
-        onPress={() => props.navigation.navigate('showTheme')}
-        icon={({focused, color, size}) =><MaterialCommunityIcons name="alien-outline" size={size} color={color} />}
-      />
-       <DrawerItem 
-        label="Tabula Rasa" 
-        onPress={() => props.navigation.navigate('Tabula Rasa')}
-        icon={({focused, color, size}) =><MaterialCommunityIcons name="atom" size={size} color={color} />}
-      />
-      <DrawerItem 
-        label="Login" 
-        onPress={() => props.navigation.navigate('login')}
-        icon={({focused, color, size}) =><MaterialCommunityIcons name="login" size={size} color={color} />}
-      />
+        <DrawerItem 
+          label="Show Theme" 
+          onPress={() => props.navigation.navigate('showTheme')}
+          icon={({focused, color, size}) =><MaterialCommunityIcons name="alien-outline" size={size} color={color} />}
+        />
+        <DrawerItem 
+          label="Tabula Rasa" 
+          onPress={() => props.navigation.navigate('Tabula Rasa')}
+          icon={({focused, color, size}) =><MaterialCommunityIcons name="atom" size={size} color={color} />}
+        />
+         <DrawerItem 
+          label="Cat"
+          onPress={() => props.navigation.navigate('Cat')}
+          icon={({focused, color, size}) =><MaterialCommunityIcons name="cat" size={size} color={color} />}
+        />
+        <DrawerItem 
+          label="Login" 
+          onPress={() => props.navigation.navigate('login')}
+          icon={({focused, color, size}) =><MaterialCommunityIcons name="login" size={size} color={color} />}
+        />
     </DrawerContentScrollView>
   );
 }
@@ -111,8 +117,9 @@ function StackNav(){
     <Stack.Navigator>
       <Stack.Screen name="DrawerNav" component={DrawerNav} options={{headerShown: false}} />
       <Stack.Screen name="showTheme" component={showTheme} />
+      <Stack.Screen name="Cat" component={cat} />
       <Stack.Screen name="Tabula Rasa" component={tabulaRasa} />
-      <Stack.Screen name="login" component={Login} />
+      <Stack.Screen name="login" component={login} />
     </Stack.Navigator>
   )
 }
@@ -163,7 +170,7 @@ function TabNav({navigation}) {
       >
         <Tab.Screen 
           name="Home" 
-          component={Home}
+          component={home}
           options={
             {
               title: 'Home',
