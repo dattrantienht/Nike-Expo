@@ -51,7 +51,7 @@ export default function cat() {
         <TouchableOpacity
             onPress={toggle}
             style={{ backgroundColor: colors.primary, padding:5 }}>
-            <Text style={{ fontSize: 20, color: colors.text }}>Get more cats</Text>
+            <Text style={{ fontSize: 20, color: "white" }}>Get more cats</Text>
         </TouchableOpacity>
     </View>
     );
