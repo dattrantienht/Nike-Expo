@@ -1,8 +1,25 @@
 import React from 'react';
+import axios from 'axios';
 import {SafeAreaView, StyleSheet, View, TextInput, Button, Alert, Image } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
 import nikeColor from '../assets/nikeColor.png'
+
+async function requestLogin(username, password) {
+  if(username != null && password != null){
+    try {
+      const response = await axios.post('https://api.keyboardslinger.club/api/Login',{
+        userName: username,
+        password: password
+      });
+      console.log(response.data)
+      
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+}
 
 const LoginInput = () => {
   const { colors } = useTheme();
@@ -15,21 +32,21 @@ const LoginInput = () => {
       <Image source={nikeColor} style={{ width: 250, height: 125, marginBottom: 20 }} /> 
       <TextInput 
         style={[styles.input,{borderColor:colors.border, color:colors.text}]} 
-        onChangeText={onChangeUsername} 
+        onChangeText={text => onChangeUsername(text)} 
         value={username}
         placeholder="Username"
         placeholderTextColor={colors.text} 
       />
       <TextInput
         style={[styles.input,{borderColor:colors.border, color:colors.text}]}
-        onChangeText={onChangePassword}
+        onChangeText={text => onChangePassword(text)}
         value={password}
         placeholder="Password"
         placeholderTextColor={colors.text}
         secureTextEntry={true}
       />
       <Button
-        onPress={() => Alert.alert('send login request')}
+        onPress={()=>requestLogin(username,password)}
         title="Login"
         color={colors.primary}
       />
