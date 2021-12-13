@@ -7,7 +7,7 @@ export default function shop() {
     return (
       <View style={[styles.container,{backgroundColor:colors.background}]}>
         <StatusBar/>
-        <Text style={[styles.text,{color:colors.text}]}>Shop Screen</Text>
+        <Text style={[styles.text,{color:colors.text}]}>Shop Monitor</Text>
       </View>
     );
   }
