@@ -14,14 +14,14 @@ const LoginInput = () => {
     <SafeAreaView style={styles.container}>
       <Image source={nikeColor} style={{ width: 250, height: 125, marginBottom: 20 }} /> 
       <TextInput 
-        style={[styles.input,{borderColor:colors.border}]} 
+        style={[styles.input,{borderColor:colors.border, color:colors.text}]} 
         onChangeText={onChangeUsername} 
         value={username}
         placeholder="Username"
         placeholderTextColor={colors.text} 
       />
       <TextInput
-        style={[styles.input,{borderColor:colors.border}]} 
+        style={[styles.input,{borderColor:colors.border, color:colors.text}]}
         onChangeText={onChangePassword}
         value={password}
         placeholder="Password"
