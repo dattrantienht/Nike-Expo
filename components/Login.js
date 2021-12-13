@@ -1,24 +1,36 @@
 import React from 'react';
 import axios from 'axios';
+import SecureStore from 'expo-secure-store';
 import {SafeAreaView, StyleSheet, View, TextInput, Button, Alert, Image } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
 import nikeColor from '../assets/nikeColor.png'
 
+let userData = {}
+
 async function requestLogin(username, password) {
   if(username != null && password != null){
-    try {
-      const response = await axios.post('https://api.keyboardslinger.club/api/Login',{
-        userName: username,
-        password: password
-      });
-      console.log(response.data)
-      
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
+    await axios.post('https://api.keyboardslinger.club/api/Login', {
+      userName: username,
+      password: password
+    })
+    .then(function (response) {
+      console.log(response.data);
+      if(response.data.succeeded){
+        //console.log(response.data.data.user.name + ' ' + response.data.data.user.lastName + ' login succeeded')
+        userData = response.data.data;
+        console.log(userData.user.name + ' ' + userData.user.lastName + ' login succeeded')
+        alert(userData.user.name + ' ' + userData.user.lastName + ' login succeeded')
+      } else {
+        console.log('login failed')
+        alert('Tên đăng nhập hoặc mật khẩu sai')
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 }
 
 const LoginInput = () => {

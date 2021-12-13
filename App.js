@@ -3,7 +3,9 @@ import React from 'react';
 import { 
   StyleSheet, 
   useColorScheme,
-  Image, 
+  View,
+  Image,
+  Text,
   TouchableOpacity 
 } from 'react-native';
 import { 
@@ -23,6 +25,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
 import nike from './assets/nike.png'
+import mycat from './assets/mycat.png'
 
 import login from './components/Login';
 import cat from './components/Cat';
@@ -44,34 +47,41 @@ function LogoTitle() {
 }
 
 function CustomDrawerContent(props) {
+  const { colors } = useTheme();
   return (
     <DrawerContentScrollView {...props}>
+      <View style={styles.container}>
+      <Image source={mycat} style={{ width: 210, height: 200, marginBottom: 20 }} />
+        <Text style={[styles.text,{color:colors.text}]}> </Text>
+      </View>
+      
       <DrawerItemList {...props} />
-        <DrawerItem 
-          label="Team"
-          onPress={() => props.navigation.navigate('Team')}
-          icon={({color, size}) =><AntDesign name="team" size={size} color={color} />}
-        />
-        <DrawerItem 
-          label="Product"
-          onPress={() => props.navigation.navigate('Product')}
-          icon={({color, size}) =><AntDesign name="barcode" size={size} color={color} />}
-        />
-        <DrawerItem 
-          label="Product Category"
-          onPress={() => props.navigation.navigate('Product Category')}
-          icon={({color, size}) =><Entypo name="bookmarks" size={size} color={color} />}
-        />
-        <DrawerItem 
-          label="User Manage"
-          onPress={() => props.navigation.navigate('User Manage')}
-          icon={({color, size}) =><FontAwesome5 name="users-cog" size={size} color={color} />}
-        />
-        <DrawerItem 
-          label="Login" 
-          onPress={() => props.navigation.navigate('login')}
-          icon={({color, size}) =><MaterialCommunityIcons name="login" size={size} color={color} />}
-        />
+
+      <DrawerItem 
+        label="Team"
+        onPress={() => props.navigation.navigate('Team')}
+        icon={({color, size}) =><AntDesign name="team" size={size} color={color} />}
+      />
+      <DrawerItem 
+        label="Product"
+        onPress={() => props.navigation.navigate('Product')}
+        icon={({color, size}) =><AntDesign name="barcode" size={size} color={color} />}
+      />
+      <DrawerItem 
+        label="Product Category"
+        onPress={() => props.navigation.navigate('Product Category')}
+        icon={({color, size}) =><Entypo name="bookmarks" size={size} color={color} />}
+      />
+      <DrawerItem 
+        label="User Manage"
+        onPress={() => props.navigation.navigate('User Manage')}
+        icon={({color, size}) =><FontAwesome5 name="users-cog" size={size} color={color} />}
+      />
+      <DrawerItem 
+        label="Login" 
+        onPress={() => props.navigation.navigate('login')}
+        icon={({color, size}) =><MaterialCommunityIcons name="login" size={size} color={color} />}
+      />
     </DrawerContentScrollView>
   );
 }
