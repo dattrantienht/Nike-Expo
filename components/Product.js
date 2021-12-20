@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
 export default function product() {
@@ -7,6 +7,7 @@ export default function product() {
     return (
       <View style={[styles.container,{backgroundColor:colors.background}]}>
         <Text style={[styles.text,{color:colors.text}]}>Product Screen</Text>
+        <Image source={{uri:'img/air-jordan-1-mid-se-shoes-hHltxp.jpg'}} style={{height:30 , width: 70}} />
       </View>
     );
   }
