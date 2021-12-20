@@ -10,7 +10,7 @@ export default function product() {
         <Text style={[styles.text,{color:colors.text}]}>Product Screen</Text>
         <Image
           style={styles.productImage}
-          source={require("../assets/img/air-jordan-xxxvi-older-basketball-shoes-5rlrTs.jpg")} 
+          source={require("../assets/"+"img/air-jordan-xxxvi-older-basketball-shoes-5rlrTs.jpg")} 
           />
       </View>
     );
