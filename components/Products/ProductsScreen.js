@@ -35,28 +35,9 @@ async function getProduct() {
 
 }
 export default function ProductsScreen(props) {
-  const { navigation } = props;
   const [datas, setDatas] = useState([]);
   useEffect(async() => {
     setDatas(await getProduct());
-
-    navigation.setOptions({
-      headerTitleStyle: {
-        fontWeight: "bold",
-        textAlign: "center",
-        alignSelf: "center",
-        flex: 1,
-      },
-      headerLeft: () => (
-        // <MenuImage
-        //   onPress={() => {
-        //     navigation.openDrawer();
-        //   }}
-        // />
-        <Text>headerLeft</Text>
-      ),
-      headerRight: () => <View />,
-    });
     return []
   }, []);
 
