@@ -56,7 +56,9 @@ export default function ProductsScreen(props) {
 
     <TouchableHighlight  underlayColor="rgba(73,182,77,0.9)" onPress={() => onPressProduct(item)}>
       <View style={styles.productsItemContainer}>
-        <Image style={styles.productsPhoto} source={require("../" + item.image)} /> 
+        <Image style={styles.productsPhoto} source={
+          require('../' + item.image) 
+        } /> 
         <Text style={[styles.productsName,{color:colors.text}]}>{item.name}</Text>
         <NumberFormat 
         //  style={styles.productsPrice}>{item.price}
