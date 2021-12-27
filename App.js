@@ -1,4 +1,4 @@
-import 'react-native-gesture-handler';
+
 import React from 'react';
 import { 
   StyleSheet, 
@@ -29,9 +29,17 @@ import mycat from './assets/mycat.png'
 
 import login from './components/Login';
 import cat from './components/Cat';
+
+
+
 import product from './components/Product';
+
 import productCategory from './components/ProductCategory';
-import shop from './components/Shop';
+// import shop from './components/Shop';
+import shop from './components/Products/ProductsScreen';
+
+
+
 import userManage from './components/UserManage';
 import team from './components/Team';
 import chat from './components/Chat';
