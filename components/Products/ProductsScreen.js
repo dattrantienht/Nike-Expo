@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTheme } from '@react-navigation/native';
 import { FlatList, Text, View, Image, TouchableHighlight } from "react-native";
 import styles from "./styles";
 
@@ -35,6 +36,7 @@ async function getProduct() {
 
 }
 export default function ProductsScreen(props) {
+  const { colors } = useTheme();
   const [datas, setDatas] = useState([]);
   useEffect(async() => {
     setDatas(await getProduct());
@@ -55,9 +57,10 @@ export default function ProductsScreen(props) {
     <TouchableHighlight  underlayColor="rgba(73,182,77,0.9)" onPress={() => onPressProduct(item)}>
       <View style={styles.productsItemContainer}>
         <Image style={styles.productsPhoto} source={require(`../${item.image}`)} />
-        <Text style={styles.productsName}>{item.name}</Text>
+        <Text style={[styles.productsName,{color:colors.text}]}>{item.name}</Text>
         <NumberFormat 
-        //  style={styles.productsPrice}>{item.price} 
+        //  style={styles.productsPrice}>{item.price}
+        style={{color:colors.text}}
         thousandsGroupStyle="thousand"
         value={item.price}
         prefix="VND "
