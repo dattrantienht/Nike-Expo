@@ -84,7 +84,7 @@ export default function ProductsScreen(props) {
     <ScrollView showsHorizontalScrollIndicator={false} >
       <FlatList data={datas} renderItem={renderProducts} keyExtractor={(item) => item.id}
       horizontal={false}
-      scrollEnabled={false}
+      scrollEnabled={true}
       numColumns={2}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
