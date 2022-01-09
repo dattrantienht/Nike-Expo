@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useTheme } from '@react-navigation/native';
 import { Modal, FlatList, Text, View, Image, TouchableHighlight, Button, Pressable } from "react-native";
-import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
-
+import RadioForm from 'react-native-simple-radio-button';
+import { RadioButton } from 'react-native-paper';
 
 import styles from "./styles";
 
@@ -15,6 +15,7 @@ import axios from 'axios';
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import NumberFormat from 'react-number-format';
 import { Ionicons } from '@expo/vector-icons';
+import Footer from "../Footer";
 
 
 let products;
@@ -45,8 +46,10 @@ async function getProduct() {
 export default function ProductsScreen(props) {
   const { colors } = useTheme();
   const [datas, setDatas] = useState([]);
+  const [listProductCategories, setListProductCategories] = useState([]);
   useEffect(async () => {
     setDatas(await getProduct());
+    // setDatas(setListProductCategories());
     return []
   }, []);
 
@@ -98,6 +101,42 @@ export default function ProductsScreen(props) {
     { label: 'Price: Low-High', value: 1 }
   ];
   const [checked, setChecked] = useState();
+
+  //productCategory
+  let productCategory = [];
+  async function ProductCategories() {
+    try {
+
+
+      await axios.get('https://api.keyboardslinger.club/api/ProductCategories',
+        {
+
+        }).then(response => {
+          /* eslint-disable */
+          productCategory = response.data.data;
+          console.log('SUCCESS');
+          console.log(productCategory);
+        })
+      return productCategory;
+    } catch (error) {
+      console.error(error);
+
+    }
+
+  }
+  const handleFilter = () => {
+    setModalVisible(true);
+
+
+
+  }
+  useEffect(async () => {
+    setListProductCategories(await ProductCategories());
+    // setDatas(setListProductCategories());
+    return []
+  }, []);
+
+  const [checkedCategory, setcheckedCategory] = useState();
   return (
 
     <ScrollView showsHorizontalScrollIndicator={false}
@@ -107,7 +146,7 @@ export default function ProductsScreen(props) {
         <Text style={styles.productCategory}>ProductCategory</Text>
         <Pressable
           style={[styles.button, styles.buttonOpen]}
-          onPress={() => setModalVisible(true)}
+          onPress={() => handleFilter()}
         >
           <Text style={styles.textStyle}>Filter <Ionicons style={{ paddingLeft: "5px" }} name="filter-outline" size={20} color="black" /></Text>
 
@@ -122,14 +161,24 @@ export default function ProductsScreen(props) {
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={styles.centeredView}>
+        <ScrollView >
           <View style={styles.modalView}>
-            <Text style={styles.headerModal}>Filter</Text>
+            <View style={{flexDirection: "row",}}>
+              <Text style={styles.headerModal}>Filter</Text>
+              <Pressable
+                style={[styles.button, styles.buttonClose,{marginLeft:"100px"}]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={styles.textStyle}>Close X</Text>
+              </Pressable>
+            </View>
+
             <View style={styles.bodyModal}>
               <Text>Sort By</Text>
               <RadioForm
                 radio_props={radio_props}
                 initial={0}
+                animation={true}
                 onPress={(checked) => { setChecked(checked) }}
               />
             </View>
@@ -143,23 +192,38 @@ export default function ProductsScreen(props) {
 
             <View style={styles.bodyModal}>
               <Text>ProductCategory</Text>
-              <RadioForm
-                radio_props={radio_props}
-                initial={0}
-                onPress={(checked) => { setChecked(checked) }}
-              />
+
+
+              {
+                listProductCategories.map((obj, i) => (
+                  <View key={obj.id} style={{ marginTop: 20, flexDirection: "row", }}>
+                    <RadioButton
+  
+                      value={obj.id}
+
+                      status={checkedCategory === i ? 'checked' : 'unchecked'}
+                      onPress={(e) => { setcheckedCategory(i) }}
+                    /><Text>{obj.name}</Text>
+                    <View
+                      style={{
+                        borderBottomColor: "#000000",
+                        borderBottomWidth: "1px",
+                        alignSelf: 'stretch'
+                      }}
+                    />
+
+                  </View>
+                ))
+              }
+
+
             </View>
 
-           
 
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>Close X</Text>
-            </Pressable>
+
+
           </View>
-        </View>
+        </ScrollView>
       </Modal>
 
       <FlatList data={datas} renderItem={renderProducts} keyExtractor={(item) => item.id}
@@ -169,6 +233,7 @@ export default function ProductsScreen(props) {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       />
+      <Footer />
     </ScrollView>
   );
 }
