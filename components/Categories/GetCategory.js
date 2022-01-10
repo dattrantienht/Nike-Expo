@@ -38,8 +38,8 @@ export default function GetCategory(props) {
     <TouchableHighlight onPress={() => onPressCategory(item)}>
       <View>
         <Text style={[styleCategory.categoriesName]}>{item.name} {'      '}
-          <Button title='Edit' onPress={() => alert.alert('Surprise its no function :))')}/>
-          <Button title='Delete' color="#ff0000"/>
+          <Button title='Thêm ' onPress={() => alert.alert('Surprise its no function :))')}/>
+          <Button title='Xóa' color="#ff0000"/>
         </Text>
       </View>
     </TouchableHighlight>

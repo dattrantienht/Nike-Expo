@@ -25,7 +25,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
 import nike from './assets/nike.png'
-import mycat from './assets/mycat.png'
+import mycat from './assets/nike.jpg'
 
 import login from './components/Login';
 import cat from './components/Cat';

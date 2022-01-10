@@ -6,7 +6,7 @@ export default function chat() {
   const { colors } = useTheme();
     return (
       <View style={[styles.container,{backgroundColor:colors.background}]}>
-        <Text style={[styles.text,{color:colors.text}]}>Chat Screen</Text>
+        <Text style={[styles.text,{color:colors.text}]}>Liên hệ với chúng tôi</Text>
       </View>
     );
   }

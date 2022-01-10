@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
 
 const styleCategory = StyleSheet.create({
-    categoriesName: {
+    categoriesNameContainer: {
         flex: 1,
         fontSize: 20,
         fontWeight: 'bold',
-        textAlign: 'center',
+        textAlign: 'left',
         color: '#333333',
         marginTop: 8
     },

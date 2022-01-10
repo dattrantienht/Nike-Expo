@@ -9,7 +9,8 @@ export default function productCategory(props) {
 
     return (
       <ScrollView >
-        <Text style={[styles.text,{color:colors.text}, styles.container]}>Product Category Screen</Text>
+
+        <Text style={[styles.text,{color:colors.text}, styles.container]}>Danh mục sản phẩm </Text>
         <GetCategory />
       </ScrollView>
     );
@@ -17,7 +18,7 @@ export default function productCategory(props) {
   
   const styles = StyleSheet.create({
     container: {flex: 1, alignItems: 'center', justifyContent: 'center'},
-    text:{ textAlign: 'left', paddingLeft: 15, fontSize:20, },
+    text:{ textAlign: 'Center', paddingLeft: 15, fontSize:30, },
     button: { Align: 'right', paddingLeft: 15,},
     Color: { backgroundColor:'red',}
   });
