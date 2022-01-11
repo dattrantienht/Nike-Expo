@@ -20,7 +20,8 @@ import Footer from "../Footer";
 
 let products;
 
-
+let allProducts = [];
+let datasFilter;
 const imgLink = 'https://dictionary.cambridge.org/images/thumb/tree_noun_001_18152.jpg?version=5.0.203';
 
 async function getProduct() {
@@ -35,6 +36,7 @@ async function getProduct() {
         products = response.data.data;
         console.log('SUCCESS');
         console.log(products);
+        allProducts = products;
       })
     return products;
   } catch (error) {
@@ -96,6 +98,7 @@ export default function ProductsScreen(props) {
     </TouchableHighlight>
 
   );
+
   var radio_props = [
     { label: 'Price: High-Low', value: 0 },
     { label: 'Price: Low-High', value: 1 }
@@ -127,8 +130,6 @@ export default function ProductsScreen(props) {
   const handleFilter = () => {
     setModalVisible(true);
 
-
-
   }
   useEffect(async () => {
     setListProductCategories(await ProductCategories());
@@ -137,13 +138,44 @@ export default function ProductsScreen(props) {
   }, []);
 
   const [checkedCategory, setcheckedCategory] = useState();
+  const [CategoryName, setCategoryName] = useState("AllProductCategory");
+  const [numberProducts, setNumberProducts] = useState(10);
+  const [numberSort, setNumberSort] = useState(radio_props[0].value);
+  const [currentSort, setCurrentSort] = useState("");
+  const handleSubmit = () => {
+    if (checkedCategory) {
+      // ||numberSort!=null
+      console.log(numberSort);
+      let CategoryNameFilter = listProductCategories.filter(x => x.id == checkedCategory)[0];
+
+      setCategoryName(CategoryNameFilter.name)
+      setNumberProducts(CategoryNameFilter.products.length);
+
+      datasFilter = allProducts.filter(x => x.productCategoryId == checkedCategory);
+      if (numberSort == 0){
+        datasFilter = datasFilter.sort(function (a, b) { return b.price - a.price });
+        setCurrentSort(radio_props[0].label)
+      }
+        
+      else {
+        datasFilter = datasFilter.sort(function (a, b) { return a.price - b.price });
+        setCurrentSort(radio_props[1].label)
+      }
+        
+      setDatas(datasFilter);
+
+
+    }
+
+
+  }
   return (
 
     <ScrollView showsHorizontalScrollIndicator={false}
       stickyHeaderIndices={[1]} >
       <Text style={styles.banner} >Banner</Text>
       <View style={styles.headerCategory}>
-        <Text style={styles.productCategory}>ProductCategory</Text>
+        <Text style={styles.productCategory}>{CategoryName}({numberProducts})  {currentSort}</Text>
         <Pressable
           style={[styles.button, styles.buttonOpen]}
           onPress={() => handleFilter()}
@@ -163,10 +195,16 @@ export default function ProductsScreen(props) {
       >
         <ScrollView >
           <View style={styles.modalView}>
-            <View style={{flexDirection: "row",}}>
+            <View style={{ flexDirection: "row", }}>
               <Text style={styles.headerModal}>Filter</Text>
               <Pressable
-                style={[styles.button, styles.buttonClose,{marginLeft:"100px"}]}
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => (handleSubmit(), setModalVisible(!modalVisible))}
+              >
+                <Text style={styles.textStyle}>Submit</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.button, styles.buttonClose, { marginLeft: "100px" }]}
                 onPress={() => setModalVisible(!modalVisible)}
               >
                 <Text style={styles.textStyle}>Close X</Text>
@@ -175,12 +213,26 @@ export default function ProductsScreen(props) {
 
             <View style={styles.bodyModal}>
               <Text>Sort By</Text>
-              <RadioForm
+              {/* <RadioForm
                 radio_props={radio_props}
-                initial={0}
+
                 animation={true}
-                onPress={(checked) => { setChecked(checked) }}
-              />
+                onPress={(checked, { value = radio_props.values }) => { setChecked(checked), setNumberSort(value) }}
+              /> */}
+
+              {
+                radio_props.map((obj, { i = obj.value }) => (
+                  <View key={i} style={{ marginTop: 20, flexDirection: "row", }}>
+                    <RadioButton
+
+                      value={i}
+
+                      status={checked === i ? 'checked' : 'unchecked'}
+                      onPress={() => { setChecked(obj.value),setNumberSort(obj.value) }}
+                    /><Text>{obj.label}</Text>
+                  </View>
+                ))
+              }
             </View>
             <View
               style={{
@@ -195,14 +247,14 @@ export default function ProductsScreen(props) {
 
 
               {
-                listProductCategories.map((obj, i) => (
-                  <View key={obj.id} style={{ marginTop: 20, flexDirection: "row", }}>
+                listProductCategories.map((obj, { i = obj.id }) => (
+                  <View key={i} style={{ marginTop: 20, flexDirection: "row", }}>
                     <RadioButton
-  
-                      value={obj.id}
+
+                      value={i}
 
                       status={checkedCategory === i ? 'checked' : 'unchecked'}
-                      onPress={(e) => { setcheckedCategory(i) }}
+                      onPress={e => { setcheckedCategory(obj.id) }}
                     /><Text>{obj.name}</Text>
                     <View
                       style={{
@@ -218,21 +270,23 @@ export default function ProductsScreen(props) {
 
 
             </View>
-
-
-
-
           </View>
         </ScrollView>
       </Modal>
+      {
+        datas.length > 0 ?
 
-      <FlatList data={datas} renderItem={renderProducts} keyExtractor={(item) => item.id}
-        horizontal={false}
-        scrollEnabled={true}
-        numColumns={2}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-      />
+          <FlatList data={datas} renderItem={renderProducts} keyExtractor={(item) => item.id}
+            horizontal={false}
+            scrollEnabled={true}
+            numColumns={2}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+          /> :
+          <View>
+            <Text style={{ fontSize: "30px", fontWeight: 'bold' }}>No Products</Text>
+          </View>}
+
       <Footer />
     </ScrollView>
   );
