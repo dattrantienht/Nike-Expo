@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useTheme } from '@react-navigation/native';
 import { FlatList, Text, View, Image, TouchableHighlight } from "react-native";
 import styles from "./styles";
-
-
+import Footer from "../Footer/Footer";
+// import Banner from "../Banner";
 // import { categories } from "../../data/dataArrays";
 // import { getNumberOfRecipes } from "../../data/MockDataAPI";
 // import MenuImage from "../../components/MenuImage/MenuImage";
@@ -11,7 +11,7 @@ import styles from "./styles";
 import axios from 'axios';
 import { ScrollView } from "react-native-gesture-handler";
 import NumberFormat from 'react-number-format';
-
+import Banner from '../Banner';
 let products;
 
 
@@ -82,6 +82,7 @@ export default function ProductsScreen(props) {
   return (
     
     <ScrollView showsHorizontalScrollIndicator={false} >
+      <Banner/>
       <FlatList data={datas} renderItem={renderProducts} keyExtractor={(item) => item.id}
       horizontal={false}
       scrollEnabled={true}
@@ -89,6 +90,7 @@ export default function ProductsScreen(props) {
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
       />
+      <Footer/>
     </ScrollView>
   );
 }

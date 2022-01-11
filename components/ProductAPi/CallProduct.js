@@ -5,7 +5,7 @@ import styles from "./ProductStyle";
 import axios from 'axios';
 import { ScrollView } from "react-native-gesture-handler";
 import NumberFormat from 'react-number-format';
-
+import Footer from "../Footer/Footer";
 let products;
 
 async function getProduct() {
@@ -71,6 +71,7 @@ export default function CallProduct(props) {
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
       />
+      <Footer/>
     </ScrollView>
   );
 }

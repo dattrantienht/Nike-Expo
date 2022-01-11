@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, FlatList, TouchableHighlight, Button } from 're
 import {useTheme} from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import GetCategory from './Categories/GetCategory';
-
+import Footer from './Footer/Footer';
 export default function productCategory(props) {
   const { colors } = useTheme();
 
@@ -12,6 +12,7 @@ export default function productCategory(props) {
 
         <Text style={[styles.text,{color:colors.text}, styles.container]}>Danh mục sản phẩm </Text>
         <GetCategory />
+        <Footer/>
       </ScrollView>
     );
   }

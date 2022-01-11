@@ -9,6 +9,9 @@ const styleCategory = StyleSheet.create({
         color: '#333333',
         marginTop: 8
     },
+    categoriesphoto:{
+        
+    }
 });
 
 export default styleCategory;

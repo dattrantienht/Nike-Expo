@@ -1,77 +1,58 @@
 import React from "react";
-import {
-Box,
-Container,
-Row,
-Column,
-FooterLink,
-Heading,
-} from "./FooterStyles";
-
+import {View, Text, Linking} from "react-native";
+import style from './style';
+import {SocialIcon} from 'react-native-elements';
 const Footer = () => {
 return (
-	<Box>
-	<h1 style={{ color: "green",
-				textAlign: "center",
-				marginTop: "-50px" }}>
-		Hãy Liên Hệ Với Chúng Tôi
-	</h1>
-	<Container>
-		<Row>
-		<Column>
-			<Heading>About Us</Heading>
-			<FooterLink href="#">Aim</FooterLink>
-			<FooterLink href="#">Vision</FooterLink>
-			<FooterLink href="#">Testimonials</FooterLink>
-		</Column>
-		<Column>
-			<Heading>Services</Heading>
-			<FooterLink href="#">Writing</FooterLink>
-			<FooterLink href="#">Internships</FooterLink>
-			<FooterLink href="#">Coding</FooterLink>
-			<FooterLink href="#">Teaching</FooterLink>
-		</Column>
-		<Column>
-			<Heading>Contact Us</Heading>
-			<FooterLink href="#">Uttar Pradesh</FooterLink>
-			<FooterLink href="#">Ahemdabad</FooterLink>
-			<FooterLink href="#">Indore</FooterLink>
-			<FooterLink href="#">Mumbai</FooterLink>
-		</Column>
-		<Column>
-			<Heading>Social Media</Heading>
-			<FooterLink href="#">
-			<i className="fab fa-facebook-f">
-				<span style={{ marginLeft: "10px" }}>
-				Facebook
-				</span>
-			</i>
-			</FooterLink>
-			<FooterLink href="#">
-			<i className="fab fa-instagram">
-				<span style={{ marginLeft: "10px" }}>
-				Instagram
-				</span>
-			</i>
-			</FooterLink>
-			<FooterLink href="#">
-			<i className="fab fa-twitter">
-				<span style={{ marginLeft: "10px" }}>
-				Twitter
-				</span>
-			</i>
-			</FooterLink>
-			<FooterLink href="#">
-			<i className="fab fa-youtube">
-				<span style={{ marginLeft: "10px" }}>
-				Youtube
-				</span>
-			</i>
-			</FooterLink>
-		</Column>
-		</Row>
-	</Container>
-	</Box>
+	<View style={style.footer}>
+	<View style={style.footerContext}>
+		<aboutlist/> 
+
+		<Text style={style.text}>
+			Find a store 
+		</Text>
+		<Text style={style.text}>
+			Become a member  
+		</Text>
+		<Text style={style.text}>
+			Sign Up for Email 
+		</Text>
+		<Text style={style.text}>
+			Send us feedback 
+		</Text>
+		<View
+              style={{
+                borderBottomColor: "white",
+                borderBottomWidth: "1px",
+                alignSelf: 'stretch'
+              }}
+            />
+			<View style={{flexDirection: 'row'}}>
+                <SocialIcon
+                  type="facebook"
+                  onPress={() => Linking.openURL('https://www.facebook.com/Ninja-In-PyJamas-102421947783975')}></SocialIcon>
+                     <Text style={{textAlign: 'center'}}>facebook</Text>	 
+                <SocialIcon
+                  type="instagram"
+                  onPress={() => Linking.openURL('https://www.instagram.com/nike/')}></SocialIcon>
+                <Text style={{textAlign: 'center'}}>
+                  instagram
+                </Text>
+				<SocialIcon
+                  type="youtube"
+                  onPress={() => Linking.openURL('https://www.youtube.com/user/nike')}></SocialIcon>
+                <Text style={{textAlign: 'center'}}>
+                  youtube
+                </Text>
+              </View>
+			  <Text style={style.text}>
+			@2021 Nike,Inc. All Right Reserved.
+		</Text>
+			  
+              </View>
+		</View>
+
+	
 );
 };
 export default Footer;
