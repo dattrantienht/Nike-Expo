@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
-    alignItems: "flex-start ",
+    alignItems: "flex-start",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   },
   headerModal:{
     fontWeight: "bold",
-    fontSize:"20px",
+    fontSize:20,
     marginBottom:"20px"
   },
   bodyModal:{

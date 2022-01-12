@@ -74,7 +74,8 @@ export default function ProductsScreen(props) {
       <View style={styles.productsItemContainer}>
         <Image style={styles.productsPhoto}
           source={
-            require('../' + item.image)
+            //require('../' + item.image)
+            {uri:item.image}
           } />
 
         {/* <Image style={styles.productsPhoto} 
@@ -284,7 +285,7 @@ export default function ProductsScreen(props) {
             showsHorizontalScrollIndicator={false}
           /> :
           <View>
-            <Text style={{ fontSize: "30px", fontWeight: 'bold' }}>No Products</Text>
+            <Text style={{ fontSize: 30, fontWeight: 'bold' }}>No Products</Text>
           </View>}
 
       <Footer />
