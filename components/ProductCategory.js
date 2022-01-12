@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import {useTheme} from '@react-navigation/native';
-import axios from 'axios';
 
 export default function ProductCategory() {
   const { colors } = useTheme();

@@ -1,12 +1,12 @@
 import React from 'react';
 import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import { useTheme } from '@react-navigation/native';
-import Product from './Product';
 
 export default function Shop() {
   const { colors } = useTheme();
     return (
       <View style={[styles.container,{backgroundColor:colors.background}]}>
+        <StatusBar/>
         <Text style={[styles.text,{color:colors.text}]}>Shop Screen</Text>
       </View>
     );
