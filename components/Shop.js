@@ -16,13 +16,13 @@ async function getListProduct() {
   }
 }
 
-const Product = ({ name, price, image }) => (
-  <View style={styles.item}>
-    <Text>{name}</Text>
+const Product = ({colors, name, price, image }) => (
+  <View style={[styles.item,{backgroundColor:colors.background}]}>
+    <Text style={[styles.productName,{color:colors.text}]}>{name}</Text>
     <Image
       style={styles.productImage}
       source={{uri: image}}/>
-    <Text>{price}</Text>
+    <Text style={[styles.productPrice,{color:colors.text}]}>{price}</Text>
   </View>
 );
 
@@ -30,7 +30,7 @@ export default function Shop() {
   const { colors } = useTheme();
   const [items, setItems] = useState([]);
   const renderItem = ({ item }) => (
-    <Product name={item.name} price={item.price} image={item.image} />
+    <Product colors={colors} name={item.name} price={item.price} image={item.image} />
   );
 
   useEffect( async ()=>{
@@ -58,10 +58,15 @@ export default function Shop() {
     text:{
       fontSize:18,
     },
+    productName:{
+      fontSize: 18
+    },
+    productPrice:{
+      fontSize: 18
+    },
     item: {
       width: 160,
       height: 200,
-      backgroundColor: 'white',
       padding: 10,
       marginVertical: 8,
       marginHorizontal: 16,
