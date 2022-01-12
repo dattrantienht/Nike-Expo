@@ -4,8 +4,6 @@ import { StatusBar, StyleSheet, Image, Text, View, FlatList } from 'react-native
 import { useTheme } from '@react-navigation/native';
 
 let listProduct;
-let imageUriTest = 'https://static.nike.com/a/images/t_prod_ss/w_640,c_limit,f_auto/f0c6bdc2-b8fe-45f7-a76d-ae1bbf30e156/air-jordan-4-crimson-ct8527-016-release-date.jpg';
-
 
 async function getListProduct() {
   try {
@@ -61,6 +59,10 @@ export default function Shop() {
     productName:{
       fontSize: 18
     },
+    productImage: {
+      width: 120,
+      height: 130,
+    },
     productPrice:{
       fontSize: 18
     },
@@ -70,9 +72,5 @@ export default function Shop() {
       padding: 10,
       marginVertical: 8,
       marginHorizontal: 16,
-    },
-    productImage: {
-      width: 120,
-      height: 130,
     },
   });
