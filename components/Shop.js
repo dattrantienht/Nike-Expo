@@ -22,32 +22,29 @@ const Product = ({ name }) => (
 );
 
 export default function Shop() {
+  const { colors } = useTheme();
+  const renderItem = ({ item }) => (
+    <Product name={item.name} />
+  );
 
   useEffect( async ()=>{
     await getListProduct();
     console.log(listProduct);
   },[]);
 
-  const renderItem = ({ item }) => (
-    <Product name={item.name} />
+  return (
+    <View style={[styles.container,{backgroundColor:colors.background}]}>
+      <StatusBar/>
+      <Text style={[styles.text,{color:colors.text}]}>Shop Screen</Text>
+      <FlatList
+        data={listProduct}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        numColumns={2}
+      />
+    </View>
   );
-
-
-
-  
-  const { colors } = useTheme();
-    return (
-      <View style={[styles.container,{backgroundColor:colors.background}]}>
-        <StatusBar/>
-        <Text style={[styles.text,{color:colors.text}]}>Shop Screen</Text>
-        <FlatList
-          data={listProduct}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-        />
-      </View>
-    );
-  }
+}
   
   const styles = StyleSheet.create({
     container: {flex: 1, alignItems: 'center', justifyContent: 'center'},
@@ -55,8 +52,10 @@ export default function Shop() {
       fontSize:18,
     },
     item: {
-      backgroundColor: '#f9c2ff',
-      padding: 20,
+      width: 160,
+      height: 180,
+      backgroundColor: 'white',
+      padding: 10,
       marginVertical: 8,
       marginHorizontal: 16,
     },
