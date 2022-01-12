@@ -11,7 +11,6 @@ async function getListProduct() {
   try {
       const response = await axios.get('https://api.keyboardslinger.club/api/Products');
       listProduct = response.data.data;
-      //console.log(listProduct);
   } catch (error) {
       console.error(error);
   }
