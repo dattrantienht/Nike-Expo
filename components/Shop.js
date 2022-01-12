@@ -15,20 +15,24 @@ async function getListProduct() {
   }
 }
 
-const Product = ({ name }) => (
+const Product = ({ name, price, image }) => (
   <View style={styles.item}>
     <Text>{name}</Text>
+    <Text>{price}</Text>
   </View>
 );
 
 export default function Shop() {
   const { colors } = useTheme();
+
+  const [items, setItems] = useState([]);
   const renderItem = ({ item }) => (
-    <Product name={item.name} />
+    <Product name={item.name} price={item.price} />
   );
 
   useEffect( async ()=>{
     await getListProduct();
+    setItems(listProduct)
     console.log(listProduct);
   },[]);
 
@@ -37,7 +41,7 @@ export default function Shop() {
       <StatusBar/>
       <Text style={[styles.text,{color:colors.text}]}>Shop Screen</Text>
       <FlatList
-        data={listProduct}
+        data={items}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         numColumns={2}
