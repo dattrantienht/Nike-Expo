@@ -16,7 +16,6 @@ import {
   DrawerItem, 
 } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, useNavigation, useTheme, DefaultTheme, DarkTheme,} from '@react-navigation/native';
 
@@ -41,8 +40,7 @@ import addProduct from './components/AddProduct'
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
-const modalStack = createStackNavigator();
+const Stack = createStackNavigator();
 
 function LogoTitle() {
   return (
@@ -92,7 +90,8 @@ function CustomDrawerContent(props) {
 
 function StackNav(){
   const { colors } = useTheme();
-  const navigation = useNavigation(); 
+  const navigation = useNavigation();
+  
   return(
     <Stack.Navigator>
       <Stack.Screen name="DrawerNav" component={DrawerNav} options={{headerShown: false}} />
@@ -103,6 +102,7 @@ function StackNav(){
         options={{
           headerRight: () => (
             <TouchableOpacity
+              style={{marginRight:10}}
               onPress={() => navigation.navigate('Add Product')}
             >
               <MaterialIcons name="add-circle-outline" size={35} color={colors.text} />
@@ -116,8 +116,18 @@ function StackNav(){
         options={{ 
           presentation: 'transparentModal',
           headerShown: false,
-          cardOverlayEnabled: true,
-          animation: 'fade'
+          cardStyleInterpolator: ({ current, layouts }) => ({
+            cardStyle: {
+              transform: [
+                {
+                  translateY: current.progress.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [layouts.screen.height, 0],
+                  }),
+                },
+              ],
+            },
+          }),
         }}
       />
       <Stack.Screen name="Product Category" component={productCategory} />
