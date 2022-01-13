@@ -2,6 +2,7 @@ import React,  {useEffect, useState} from 'react';
 import axios from 'axios';
 import { SafeAreaView, StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 import {useTheme, useNavigation} from '@react-navigation/native';
+import RNPickerSelect from 'react-native-picker-select';
 
 let listCategory;
 async function getListCategory() {
@@ -38,9 +39,16 @@ const ProductInput = () => {
               })
           }
           console.log(options)
+          setCategories(options);
       }
     },[]);
 
+    let sports = [
+        { label: 'Football', value: 'football' },
+        { label: 'Baseball', value: 'baseball' },
+        { label: 'Hockey', value: 'hockey' },
+        ]
+    console.log(sports)
     const [productName, onChangeProductName] = React.useState(null);
     const [productPrice, onChangeProductPrice] = React.useState(null);
     const [productImage, onChangeProductImage] = React.useState(null);
@@ -55,7 +63,10 @@ const ProductInput = () => {
                 placeholder="Product name"
                 placeholderTextColor={colors.text} 
             />
-           
+            <RNPickerSelect
+                onValueChange={(value) => console.log(value)}
+                items={categories}
+            />
             <TextInput 
                 style={[styles.input,{borderColor:colors.border, color:colors.text}]} 
                 onChangeText={text => onChangeProductPrice(text)} 
