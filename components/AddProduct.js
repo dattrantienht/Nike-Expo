@@ -26,18 +26,18 @@ const ProductInput = () => {
     const { colors } = useTheme();
     const navigation = useNavigation();
     const [categories, setCategories] = useState([]);
+    let options = []
     useEffect( async ()=>{
       await getListCategory();
       if(listCategory.length>0){
-          let options = []
+          options = []
           for(let i = 0; i < listCategory.length; i++){
               options.push({
                   label: listCategory[i].name,
                   value: listCategory[i].id
               })
           }
-          setCategories(options);
-          console.log(categories)
+          console.log(options)
       }
     },[]);
 
