@@ -3,8 +3,6 @@ import axios from 'axios';
 import { SafeAreaView, StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 import {useTheme, useNavigation} from '@react-navigation/native';
 import RNPickerSelect from 'react-native-picker-select';
-import { Ionicons } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons'; 
 
 let listCategory;
 async function getListCategory() {
@@ -17,11 +15,31 @@ async function getListCategory() {
 }
 
 async function addNewProduct(productName, productCategory, productPrice, productImage){
+    
     if(productName != null && productCategory !=null && productPrice != null && productImage != null){
-        // await axios.post('https://api.keyboardslinger.club/api/Products',{
-
-        // })
-        console.log(productName + "\n" + productCategory + "\n" + productPrice + "\n" + productImage)
+        console.log(
+            productName + "\n" + 
+            productCategory + "\n" + 
+            productPrice + "\n" + 
+            productImage
+        )
+        await axios.post('https://api.keyboardslinger.club/api/Products',{
+            name: productName,
+            image: productImage,
+            price: productPrice,
+            productCategoryId: productCategory
+        })
+        .then(function (response) {
+            console.log(response.data);
+            if(response.data.succeeded){
+              alert('New product added')
+            } else {
+              alert('Add product failed')
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
     }
 }
 
@@ -109,8 +127,6 @@ const ProductInput = () => {
         
     )
 }
-
-
 
 export default function AddProduct() {
   const { colors } = useTheme();
