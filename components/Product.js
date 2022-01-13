@@ -34,7 +34,7 @@ export default function Product() {
   };
   const renderItem = data => (
     <TouchableHighlight
-        onPress={() => console.log('You touched me')}
+        onPress={() => console.log('You touched ' + data.item.id)}
         style={styles.rowFront}
         underlayColor={'#AAA'}
     >
