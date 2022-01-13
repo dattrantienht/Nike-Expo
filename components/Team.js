@@ -6,7 +6,7 @@ export default function team() {
   const { colors } = useTheme();
     return (
       <View style={[styles.container,{backgroundColor:colors.background}]}>
-        <Text style={[styles.text,{color:colors.text}]}>Team Screen</Text>
+        <Text style={[styles.text,{color:colors.text}]}>Team </Text>
       </View>
     );
   }
@@ -14,6 +14,6 @@ export default function team() {
   const styles = StyleSheet.create({
     container: {flex: 1, alignItems: 'center', justifyContent: 'center'},
     text:{
-      fontSize:18,
+      fontSize:30,
     }
   });

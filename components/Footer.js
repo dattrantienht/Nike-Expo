@@ -30,8 +30,9 @@ class shop extends Component{
 }
 
 const styles = StyleSheet.create({
+	
 	footer:{
-		backgroundColor:'#000000',
+		backgroundColor:'white',
 		justifyContent:'center',
 		alignItems:'center',
 		height:50,
