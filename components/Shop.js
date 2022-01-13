@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { StatusBar, StyleSheet, Image, Text, View, FlatList } from 'react-native';
 import { useTheme } from '@react-navigation/native';
-
+import Footer from './Footer';
 let listProduct;
 let imageUriTest = 'https://static.nike.com/a/images/t_prod_ss/w_640,c_limit,f_auto/f0c6bdc2-b8fe-45f7-a76d-ae1bbf30e156/air-jordan-4-crimson-ct8527-016-release-date.jpg';
 
@@ -42,14 +42,16 @@ export default function Shop() {
   return (
     <View style={[styles.container,{backgroundColor:colors.background}]}>
       <StatusBar/>
-      <Text style={[styles.text,{color:colors.text}]}>Shop Screen</Text>
+      <Text style={[styles.text,{color:colors.text}]}>Sản Phẩm Hot !</Text>
       <FlatList
         data={items}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         numColumns={2}
       />
-    </View>
+<Footer/>
+   </View>
+  
   );
 }
   
@@ -70,4 +72,6 @@ export default function Shop() {
       width: 120,
       height: 130,
     },
+
+    
   });
