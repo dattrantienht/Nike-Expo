@@ -16,9 +16,10 @@ async function getListProduct() {
 }
 
 export default function Product() {
-
+  const [items, setItems] = useState([]);
   useEffect( async ()=>{
     await getListProduct();
+    setItems(listProduct)
     console.log(listProduct);
   },[]);
 
@@ -65,7 +66,7 @@ export default function Product() {
       <View style={[styles.container,{backgroundColor:colors.background}]}>
         <Text style={[styles.text,{color:colors.text}]}>Product Screen</Text>
         <SwipeListView
-          data={listProduct}
+          data={items}
           renderItem={renderItem}
           renderHiddenItem={renderHiddenItem}
           leftOpenValue={75}
