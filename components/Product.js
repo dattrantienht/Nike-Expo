@@ -20,7 +20,6 @@ export default function Product() {
   useEffect( async ()=>{
     await getListProduct();
     setItems(listProduct)
-    console.log(listProduct);
   },[]);
 
   const { colors } = useTheme();
@@ -66,6 +65,9 @@ export default function Product() {
       <View style={[styles.container,{backgroundColor:colors.background}]}>
         <Text style={[styles.text,{color:colors.text}]}>Product Screen</Text>
         <SwipeListView
+          keyExtractor={(rowData)=>{
+            return rowData.id;
+          }}
           data={items}
           renderItem={renderItem}
           renderHiddenItem={renderHiddenItem}
