@@ -34,7 +34,7 @@ export default function Shop() {
   useEffect( async ()=>{
     await getListProduct();
     setItems(listProduct)
-    console.log(listProduct);
+    //console.log(listProduct);
   },[]);
 
   return (
