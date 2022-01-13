@@ -17,13 +17,13 @@ async function getListProduct() {
 }
 
 export default function Product() {
+  const { colors } = useTheme();
   const [items, setItems] = useState([]);
   useEffect( async ()=>{
     await getListProduct();
     setItems(listProduct)
   },[]);
 
-  const { colors } = useTheme();
   const editProduct = (rowMap, rowKey) => {
     console.log("edit " + rowKey);
   };
@@ -36,15 +36,18 @@ export default function Product() {
   const renderItem = data => (
     <TouchableHighlight
         onPress={() => console.log('You touched ' + data.item.id)}
-        style={styles.rowFront}
-        underlayColor={'#AAA'}
+        style={[styles.rowFront,{
+          backgroundColor:colors.background,
+          borderBottomColor: colors.border
+        }]}
+        underlayColor={'#9B59B6'}
     >
-        <View style={styles.productRow}>
+        <View style={[styles.productRow,]}>
           <Image
             style={styles.productImage}
             source={{uri: data.item.image}}
           />
-          <Text> {data.item.name} </Text>
+          <Text style={[styles.productName,{color:colors.text}]}> {data.item.name} </Text>
         </View>
     </TouchableHighlight>
   );
@@ -68,7 +71,6 @@ export default function Product() {
 
     return (
       <View style={[styles.container,{backgroundColor:colors.background}]}>
-        <Text style={[styles.text,{color:colors.text}]}>Product Screen</Text>
         <SwipeListView
           keyExtractor={(rowData)=>{
             return rowData.id;
@@ -104,13 +106,20 @@ const styles = StyleSheet.create({
   productImage: {
     width: 60,
     height: 70,
+    position: 'absolute',
+    left:10
+  },
+  productName:{
+    fontSize:15,
+    position: 'absolute',
+    right: 70
   },
   rowFront: {
     alignItems: 'center',
-    backgroundColor: '#CCC',
     borderBottomColor: 'black',
     borderBottomWidth: 1,
-    justifyContent: 'center',
+    flex: 1,
+    flexDirection: 'row',
     width:width,
     height: 80
   },
@@ -133,11 +142,11 @@ const styles = StyleSheet.create({
     height: 80
   },
   backRightBtnLeft: {
-    backgroundColor: 'blue',
+    backgroundColor: '#58D68D',
     right: 75,
   },
   backRightBtnRight: {
-    backgroundColor: 'red',
+    backgroundColor: '#EC7063',
     right: 0,
   },
 });
