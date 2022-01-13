@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Dimensions } from 'react-native';
+import { StyleSheet, Image, Text, View, TouchableOpacity, TouchableHighlight, Dimensions } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
@@ -39,8 +39,12 @@ export default function Product() {
         style={styles.rowFront}
         underlayColor={'#AAA'}
     >
-        <View>
-            <Text> {data.item.name} </Text>
+        <View style={styles.productRow}>
+          <Image
+            style={styles.productImage}
+            source={{uri: data.item.image}}
+          />
+          <Text> {data.item.name} </Text>
         </View>
     </TouchableHighlight>
   );
@@ -83,47 +87,57 @@ export default function Product() {
     );
 }
   
-  const styles = StyleSheet.create({
-    container: {flex: 1, alignItems: 'center', justifyContent: 'center'},
-    text:{
-      fontSize:18,
-    },
-    backTextWhite: {
-      color: '#FFF',
+const styles = StyleSheet.create({
+  container: {flex: 1, alignItems: 'center', justifyContent: 'center'},
+  text:{
+    fontSize:18,
+  },
+  backTextWhite: {
+    color: '#FFF',
+  },
+  productRow:{
+    flex:1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  productImage: {
+    width: 60,
+    height: 70,
   },
   rowFront: {
-      alignItems: 'center',
-      backgroundColor: '#CCC',
-      borderBottomColor: 'black',
-      borderBottomWidth: 1,
-      justifyContent: 'center',
-      width:width,
-      height: 80
+    alignItems: 'center',
+    backgroundColor: '#CCC',
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    justifyContent: 'center',
+    width:width,
+    height: 80
   },
   rowBack: {
-      alignItems: 'center',
-      backgroundColor: '#DDD',
-      flex: 1,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      paddingLeft: 15,
-      height: 80,
+    alignItems: 'center',
+    backgroundColor: '#DDD',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 15,
+    height: 80,
   },
   backRightBtn: {
-      alignItems: 'center',
-      bottom: 0,
-      justifyContent: 'center',
-      position: 'absolute',
-      top: 0,
-      width: 75,
-      height: 80
+    alignItems: 'center',
+    bottom: 0,
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+    width: 75,
+    height: 80
   },
   backRightBtnLeft: {
-      backgroundColor: 'blue',
-      right: 75,
+    backgroundColor: 'blue',
+    right: 75,
   },
   backRightBtnRight: {
-      backgroundColor: 'red',
-      right: 0,
+    backgroundColor: 'red',
+    right: 0,
   },
-  });
+});

@@ -34,13 +34,11 @@ export default function Shop() {
   useEffect( async ()=>{
     await getListProduct();
     setItems(listProduct)
-    //console.log(listProduct);
   },[]);
 
   return (
     <View style={[styles.container,{backgroundColor:colors.background}]}>
       <StatusBar/>
-      <Text style={[styles.text,{color:colors.text}]}>Shop Screen</Text>
       <FlatList
         data={items}
         renderItem={renderItem}
