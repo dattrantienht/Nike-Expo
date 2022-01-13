@@ -99,7 +99,7 @@ export default function Product() {
       </View>
     );
 }
-  
+
 const styles = StyleSheet.create({
   container: {flex: 1, alignItems: 'center', justifyContent: 'center'},
   text:{
