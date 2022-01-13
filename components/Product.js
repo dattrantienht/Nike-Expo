@@ -4,6 +4,10 @@ import { StyleSheet, Image, Text, View, TouchableOpacity, TouchableHighlight, Di
 import {useTheme} from '@react-navigation/native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+
+import catPeak from '../assets/catPeak.png'
+
 var {height, width} = Dimensions.get('window');
 let listProduct;
 
@@ -53,18 +57,20 @@ export default function Product() {
   );
   const renderHiddenItem = (data, rowMap) => (
     <View style={styles.rowBack}>
-        <Text>Left</Text>
+        <Image style={styles.backLeftImage} source={catPeak} /> 
         <TouchableOpacity
             style={[styles.backRightBtn, styles.backRightBtnLeft]}
             onPress={() => editProduct(rowMap, data.item.id)}
         >
-            <Text style={styles.backTextWhite}>Edit</Text>
+            
+            <MaterialCommunityIcons name="database-edit" size={35} color="black" />
         </TouchableOpacity>
         <TouchableOpacity
             style={[styles.backRightBtn, styles.backRightBtnRight]}
             onPress={() => deleteProduct(rowMap, data.item.id)}
         >
-            <Text style={styles.backTextWhite}>Delete</Text>
+            
+            <MaterialCommunityIcons name="delete-circle" size={35} color="black" />
         </TouchableOpacity>
     </View>
   );
@@ -131,6 +137,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingLeft: 15,
     height: 80,
+  },
+  backLeftImage:{
+    width: 60, 
+    height: 70,
+    position: 'absolute',
   },
   backRightBtn: {
     alignItems: 'center',
