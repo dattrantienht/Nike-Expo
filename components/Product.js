@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, Dimensions } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
+var {height, width} = Dimensions.get('window');
 let listProduct;
 
 async function getListProduct() {
@@ -96,7 +97,8 @@ export default function Product() {
       borderBottomColor: 'black',
       borderBottomWidth: 1,
       justifyContent: 'center',
-      height: 50,
+      width:width,
+      height: 80
   },
   rowBack: {
       alignItems: 'center',
@@ -105,6 +107,7 @@ export default function Product() {
       flexDirection: 'row',
       justifyContent: 'space-between',
       paddingLeft: 15,
+      height: 80,
   },
   backRightBtn: {
       alignItems: 'center',
@@ -113,6 +116,7 @@ export default function Product() {
       position: 'absolute',
       top: 0,
       width: 75,
+      height: 80
   },
   backRightBtnLeft: {
       backgroundColor: 'blue',
