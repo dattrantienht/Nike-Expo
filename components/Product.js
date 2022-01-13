@@ -75,6 +75,11 @@ export default function Product() {
     </View>
   );
 
+  const clickHandler = () => {
+    //function to handle click on floating Action Button
+    alert('Floating Button Clicked');
+  };
+
     return (
       <View style={[styles.container,{backgroundColor:colors.background}]}>
         <SwipeListView

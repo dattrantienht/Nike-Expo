@@ -6,7 +6,8 @@ import {
   View,
   Image,
   Text,
-  TouchableOpacity 
+  TouchableOpacity,
+  Button
 } from 'react-native';
 import { 
   createDrawerNavigator,
@@ -87,11 +88,24 @@ function CustomDrawerContent(props) {
 }
 
 function StackNav(){
+  const { colors } = useTheme();
   return(
     <Stack.Navigator>
       <Stack.Screen name="DrawerNav" component={DrawerNav} options={{headerShown: false}} />
       <Stack.Screen name="Team" component={team} />
-      <Stack.Screen name="Product" component={product} />
+      <Stack.Screen 
+        name="Product" 
+        component={product} 
+        options={{
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => console.log('add product')}
+            >
+              <MaterialIcons name="add-circle-outline" size={35} color={colors.text} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
       <Stack.Screen name="Product Category" component={productCategory} />
       <Stack.Screen name="User Manage" component={userManage} />
       <Stack.Screen name="login" component={login} />
