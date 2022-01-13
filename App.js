@@ -113,7 +113,12 @@ function StackNav(){
       <Stack.Screen
         name="Add Product"
         component={addProduct}
-        options={{ presentation: 'transparentModal' }}
+        options={{ 
+          presentation: 'transparentModal',
+          headerShown: false,
+          cardOverlayEnabled: true,
+          animation: 'fade'
+        }}
       />
       <Stack.Screen name="Product Category" component={productCategory} />
       <Stack.Screen name="User Manage" component={userManage} />
