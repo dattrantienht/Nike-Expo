@@ -27,28 +27,19 @@ const ProductInput = () => {
     const { colors } = useTheme();
     const navigation = useNavigation();
     const [categories, setCategories] = useState([]);
-    let options = []
     useEffect( async ()=>{
       await getListCategory();
       if(listCategory.length>0){
-          options = []
+          let options = []
           for(let i = 0; i < listCategory.length; i++){
               options.push({
                   label: listCategory[i].name,
                   value: listCategory[i].id
               })
           }
-          console.log(options)
           setCategories(options);
       }
     },[]);
-
-    let sports = [
-        { label: 'Football', value: 'football' },
-        { label: 'Baseball', value: 'baseball' },
-        { label: 'Hockey', value: 'hockey' },
-        ]
-    console.log(sports)
     const [productName, onChangeProductName] = React.useState(null);
     const [productPrice, onChangeProductPrice] = React.useState(null);
     const [productImage, onChangeProductImage] = React.useState(null);
@@ -66,6 +57,7 @@ const ProductInput = () => {
             <RNPickerSelect
                 onValueChange={(value) => console.log(value)}
                 items={categories}
+                style={pickerSelectStyles}
             />
             <TextInput 
                 style={[styles.input,{borderColor:colors.border, color:colors.text}]} 
@@ -113,6 +105,29 @@ export default function AddProduct() {
     );
   }
   
+  const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+      fontSize: 16,
+      paddingVertical: 12,
+      paddingHorizontal: 10,
+      borderWidth: 1,
+      borderColor: 'gray',
+      borderRadius: 4,
+      color: 'red',
+      paddingRight: 30, // to ensure the text is never behind the icon
+    },
+    inputAndroid: {
+      fontSize: 16,
+      paddingHorizontal: 10,
+      paddingVertical: 8,
+      borderWidth: 0.5,
+      borderColor: 'purple',
+      borderRadius: 8,
+      color: 'red',
+      paddingRight: 30, // to ensure the text is never behind the icon
+    },
+  });
+
   const styles = StyleSheet.create({
     container: {flex: 1,  alignItems: 'center', justifyContent: 'center'},
     text:{
@@ -130,5 +145,6 @@ export default function AddProduct() {
     },
     button:{
         marginRight:10
-    }
+    },
+    
   });
