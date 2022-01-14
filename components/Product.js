@@ -29,6 +29,7 @@ async function getListProduct() {
   }
 }
 
+
 export default function Product() {
   const { colors } = useTheme();
   const isFocused = useIsFocused();
@@ -43,7 +44,18 @@ export default function Product() {
       setItems(listProduct)
     }
     
-  },[isFocused]);
+  },[isFocused, mounted]);
+
+  async function requestDeleteProduct(id) {
+    try {
+        const response = await axios.delete('https://api.keyboardslinger.club/api/Products/'+id);
+        listProduct = response.data.data;
+        console.log(response.data.data.name + " deleted")
+        toggle();
+    } catch (error) {
+        console.error(error);
+    }
+  }
 
   const deleteAlert = (name,id) =>
   Alert.alert(
@@ -55,7 +67,10 @@ export default function Product() {
         onPress: () => console.log("No Pressed"),
         style: "cancel"
       },
-      { text: "Yes", onPress: () => console.log("Yes Pressed") }
+      { text: "Yes", onPress: () => {
+        console.log("Yes Pressed");
+        requestDeleteProduct(id);
+      }}
     ],
     {
       cancelable: true,
