@@ -45,10 +45,10 @@ export default function Product() {
     
   },[isFocused]);
 
-  const deleteAlert = () =>
+  const deleteAlert = (name,id) =>
   Alert.alert(
     "Confirm",
-    "Are you sure you want to delete this product?",
+    "Are you sure you want to delete product " + name + "?",
     [
       {
         text: "No",
@@ -65,9 +65,9 @@ export default function Product() {
   const editProduct = (rowMap, rowKey) => {
     console.log("edit " + rowKey);
   };
-  const deleteProduct = (rowMap, rowKey) => {
+  const deleteProduct = (rowMap, name, rowKey) => {
     console.log("delete " + rowKey);
-    deleteAlert();
+    deleteAlert(name,rowKey);
   };
   const onRowDidOpen = rowKey => {
     console.log('This row opened', rowKey);
@@ -102,7 +102,7 @@ export default function Product() {
         </TouchableOpacity>
         <TouchableOpacity
             style={[styles.backRightBtn, styles.backRightBtnRight]}
-            onPress={() => {deleteProduct(rowMap, data.item.id)}}
+            onPress={() => {deleteProduct(rowMap, data.item.name, data.item.id)}}
         >
             
             <MaterialCommunityIcons name="delete-circle" size={35} color="black" />
