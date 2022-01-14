@@ -18,6 +18,7 @@ import {
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, useNavigation, useTheme, DefaultTheme, DarkTheme,} from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -225,6 +226,7 @@ export default function App() {
 
       <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
         <StackNav/>
+        <Toast />
       </NavigationContainer>
 
   );

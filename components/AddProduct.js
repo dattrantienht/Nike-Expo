@@ -3,6 +3,7 @@ import axios from 'axios';
 import { SafeAreaView, StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 import {useTheme, useNavigation} from '@react-navigation/native';
 import RNPickerSelect from 'react-native-picker-select';
+import Toast from 'react-native-toast-message';
 
 let listCategory;
 async function getListCategory() {
@@ -16,6 +17,12 @@ async function getListCategory() {
 
 async function addNewProduct(productName, productCategory, productPrice, productImage){
     
+    const showWarningToast = () => {
+        Toast.show({
+          type: 'info',
+          text1: 'Please fill out the form below 👇.'
+        });
+      }
     if(productName != null && productCategory !=null && productPrice != null && productImage != null){
         console.log(
             productName + "\n" + 
@@ -40,6 +47,8 @@ async function addNewProduct(productName, productCategory, productPrice, product
         .catch(function (error) {
             console.log(error);
         });
+    } else{
+        showWarningToast();
     }
 }
 

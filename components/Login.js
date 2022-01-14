@@ -18,7 +18,6 @@ async function requestLogin(username, password) {
     .then(function (response) {
       console.log(response.data);
       if(response.data.succeeded){
-        //console.log(response.data.data.user.name + ' ' + response.data.data.user.lastName + ' login succeeded')
         userData = response.data.data;
         console.log(userData.user.name + ' ' + userData.user.lastName + ' login succeeded')
         alert(userData.user.name + ' ' + userData.user.lastName + ' login succeeded')
