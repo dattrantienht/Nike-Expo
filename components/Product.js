@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {useTheme, useIsFocused} from '@react-navigation/native';
 import { SwipeListView } from 'react-native-swipe-list-view';
+import Toast from 'react-native-toast-message';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
@@ -46,12 +47,20 @@ export default function Product() {
     
   },[isFocused, mounted]);
 
-  async function requestDeleteProduct(id) {
+  const showSuccessToast = (name) => {
+    Toast.show({
+      type: 'success',
+      text1: 'Product ' + name + ' deleted.'
+    });
+  }
+
+  async function requestDeleteProduct(id,name) {
     try {
         const response = await axios.delete('https://api.keyboardslinger.club/api/Products/'+id);
         listProduct = response.data.data;
         console.log(response.data.data.name + " deleted")
         toggle();
+        showSuccessToast(name)
     } catch (error) {
         console.error(error);
     }
@@ -69,7 +78,7 @@ export default function Product() {
       },
       { text: "Yes", onPress: () => {
         console.log("Yes Pressed");
-        requestDeleteProduct(id);
+        requestDeleteProduct(id,name);
       }}
     ],
     {
