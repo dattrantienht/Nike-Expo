@@ -1,6 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { StyleSheet, Image, Text, View, TouchableOpacity, TouchableHighlight, Dimensions } from 'react-native';
+import { 
+  StyleSheet, 
+  Image, 
+  Text, 
+  View, 
+  TouchableOpacity, 
+  TouchableHighlight, 
+  Dimensions,
+  Alert,
+} from 'react-native';
 import {useTheme, useIsFocused} from '@react-navigation/native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
@@ -26,6 +35,7 @@ export default function Product() {
   const [mounted, setMounted] = useState(true);
   const toggle = () => setMounted(!mounted);
   const [items, setItems] = useState([]);
+
   useEffect( async ()=>{
     console.log("useEffect list product fire")
     await getListProduct();
@@ -35,11 +45,29 @@ export default function Product() {
     
   },[isFocused]);
 
+  const deleteAlert = () =>
+  Alert.alert(
+    "Confirm",
+    "Are you sure you want to delete this product?",
+    [
+      {
+        text: "No",
+        onPress: () => console.log("No Pressed"),
+        style: "cancel"
+      },
+      { text: "Yes", onPress: () => console.log("Yes Pressed") }
+    ],
+    {
+      cancelable: true,
+    }
+  );
+
   const editProduct = (rowMap, rowKey) => {
     console.log("edit " + rowKey);
   };
   const deleteProduct = (rowMap, rowKey) => {
     console.log("delete " + rowKey);
+    deleteAlert();
   };
   const onRowDidOpen = rowKey => {
     console.log('This row opened', rowKey);
@@ -74,7 +102,7 @@ export default function Product() {
         </TouchableOpacity>
         <TouchableOpacity
             style={[styles.backRightBtn, styles.backRightBtnRight]}
-            onPress={() => deleteProduct(rowMap, data.item.id)}
+            onPress={() => {deleteProduct(rowMap, data.item.id)}}
         >
             
             <MaterialCommunityIcons name="delete-circle" size={35} color="black" />
