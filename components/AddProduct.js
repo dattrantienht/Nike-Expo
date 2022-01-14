@@ -15,14 +15,29 @@ async function getListCategory() {
     }
 }
 
-async function addNewProduct(productName, productCategory, productPrice, productImage){
-    
+const addNewProduct = async (productName, productCategory, productPrice, productImage) => {
+    //const navigation = useNavigation();
+    const showSuccessToast = () => {
+        Toast.show({
+          type: 'success',
+          text1: 'New product added.'
+        });
+    }
+
     const showWarningToast = () => {
         Toast.show({
           type: 'info',
           text1: 'Please fill out the form below 👇.'
         });
-      }
+    }
+
+    const showErrorToast = () => {
+        Toast.show({
+          type: 'error',
+          text1: 'Add product failed.'
+        });
+    }
+
     if(productName != null && productCategory !=null && productPrice != null && productImage != null){
         console.log(
             productName + "\n" + 
@@ -39,9 +54,11 @@ async function addNewProduct(productName, productCategory, productPrice, product
         .then(function (response) {
             console.log(response.data);
             if(response.data.succeeded){
-              alert('New product added')
+              showSuccessToast();
+              //navigation.goBack()
+              //console.log("add product success")
             } else {
-              alert('Add product failed')
+              showErrorToast();
             }
         })
         .catch(function (error) {
