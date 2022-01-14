@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import SecureStore from 'expo-secure-store';
 import {SafeAreaView, StyleSheet, View, TextInput, Button, Alert, Image } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
