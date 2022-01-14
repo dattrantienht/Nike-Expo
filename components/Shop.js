@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { StatusBar, StyleSheet, Image, Text, View, FlatList } from 'react-native';
-import { useTheme } from '@react-navigation/native';
+import { useTheme, useIsFocused } from '@react-navigation/native';
 
 let listProduct;
 
@@ -26,6 +26,7 @@ const Product = ({colors, name, price, image }) => (
 
 export default function Shop() {
   const { colors } = useTheme();
+  const isFocused = useIsFocused();
   const [items, setItems] = useState([]);
   const renderItem = ({ item }) => (
     <Product colors={colors} name={item.name} price={item.price} image={item.image} />
@@ -34,7 +35,7 @@ export default function Shop() {
   useEffect( async ()=>{
     await getListProduct();
     setItems(listProduct)
-  },[]);
+  },[isFocused]);
 
   return (
     <View style={[styles.container,{backgroundColor:colors.background}]}>

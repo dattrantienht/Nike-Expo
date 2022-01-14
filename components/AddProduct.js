@@ -1,7 +1,7 @@
 import React,  {useEffect, useState} from 'react';
 import axios from 'axios';
 import { SafeAreaView, StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
-import {useTheme, useNavigation} from '@react-navigation/native';
+import {useTheme, useNavigation, useIsFocused} from '@react-navigation/native';
 import RNPickerSelect from 'react-native-picker-select';
 import Toast from 'react-native-toast-message';
 
@@ -21,6 +21,7 @@ async function getListCategory() {
 const ProductInput = () => {
     const { colors } = useTheme();
     const navigation = useNavigation();
+    const isFocused = useIsFocused();
     const [categories, setCategories] = useState([]);
     useEffect( async ()=>{
       await getListCategory();
@@ -34,7 +35,7 @@ const ProductInput = () => {
           }
           setCategories(options);
       }
-    },[]);
+    },[isFocused]);
     const [productName, onChangeProductName] = React.useState(null);
     const [productPrice, onChangeProductPrice] = React.useState(null);
     const [productImage, onChangeProductImage] = React.useState(null);
