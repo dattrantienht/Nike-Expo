@@ -44,6 +44,7 @@ import userManage from './components/UserManage';
 import team from './components/Team';
 import chat from './components/Chat';
 import addProduct from './components/AddProduct'
+import EditProduct from './components/EditProduct';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -120,6 +121,26 @@ function StackNav(){
       <Stack.Screen
         name="Add Product"
         component={addProduct}
+        options={{ 
+          presentation: 'transparentModal',
+          headerShown: false,
+          cardStyleInterpolator: ({ current, layouts }) => ({
+            cardStyle: {
+              transform: [
+                {
+                  translateY: current.progress.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [layouts.screen.height, 0],
+                  }),
+                },
+              ],
+            },
+          }),
+        }}
+      />
+      <Stack.Screen
+        name="Edit Product"
+        component={EditProduct}
         options={{ 
           presentation: 'transparentModal',
           headerShown: false,

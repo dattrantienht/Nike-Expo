@@ -10,7 +10,7 @@ import {
   Dimensions,
   Alert,
 } from 'react-native';
-import {useTheme, useIsFocused} from '@react-navigation/native';
+import {useTheme, useNavigation, useIsFocused} from '@react-navigation/native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Toast from 'react-native-toast-message';
 
@@ -34,6 +34,7 @@ async function getListProduct() {
 export default function Product() {
   const { colors } = useTheme();
   const isFocused = useIsFocused();
+  const navigation = useNavigation();
   const [mounted, setMounted] = useState(true);
   const toggle = () => setMounted(!mounted);
   const [items, setItems] = useState([]);
@@ -88,6 +89,7 @@ export default function Product() {
 
   const editProduct = (rowMap, rowKey) => {
     console.log("edit " + rowKey);
+    navigation.navigate('Edit Product')
   };
   const deleteProduct = (rowMap, name, rowKey) => {
     console.log("delete " + rowKey);
