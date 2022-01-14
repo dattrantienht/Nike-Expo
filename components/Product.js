@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { StyleSheet, Image, Text, View, TouchableOpacity, TouchableHighlight, Dimensions } from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {useTheme, useIsFocused} from '@react-navigation/native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
@@ -22,11 +22,18 @@ async function getListProduct() {
 
 export default function Product() {
   const { colors } = useTheme();
+  const isFocused = useIsFocused();
+  const [mounted, setMounted] = useState(true);
+  const toggle = () => setMounted(!mounted);
   const [items, setItems] = useState([]);
   useEffect( async ()=>{
+    console.log("useEffect list product fire")
     await getListProduct();
-    setItems(listProduct)
-  },[]);
+    if(isFocused){
+      setItems(listProduct)
+    }
+    
+  },[isFocused]);
 
   const editProduct = (rowMap, rowKey) => {
     console.log("edit " + rowKey);

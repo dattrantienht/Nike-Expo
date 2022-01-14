@@ -33,6 +33,7 @@ export default function Shop() {
   );
 
   useEffect( async ()=>{
+    console.log("useEffect shop fire")
     await getListProduct();
     setItems(listProduct)
   },[isFocused]);

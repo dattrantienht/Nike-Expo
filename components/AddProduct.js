@@ -16,14 +16,13 @@ async function getListCategory() {
 }
 
 
-
-
 const ProductInput = () => {
     const { colors } = useTheme();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
     const [categories, setCategories] = useState([]);
     useEffect( async ()=>{
+      console.log("useEffect add product fire")
       await getListCategory();
       if(listCategory.length>0){
           let options = []
@@ -33,7 +32,10 @@ const ProductInput = () => {
                   value: listCategory[i].id
               })
           }
-          setCategories(options);
+          if(isFocused){
+            setCategories(options);
+          }
+          
       }
     },[isFocused]);
     const [productName, onChangeProductName] = React.useState(null);
@@ -42,7 +44,6 @@ const ProductInput = () => {
     const [productCategory, onChangeProductCategory] = React.useState(null);
 
     const addNewProduct = async (productName, productCategory, productPrice, productImage) => {
-        //const navigation = useNavigation();
         const showSuccessToast = () => {
             Toast.show({
               type: 'success',
@@ -82,7 +83,6 @@ const ProductInput = () => {
                 if(response.data.succeeded){
                   showSuccessToast();
                   navigation.goBack()
-                  //console.log("add product success")
                 } else {
                   showErrorToast();
                 }
