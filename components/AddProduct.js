@@ -15,59 +15,7 @@ async function getListCategory() {
     }
 }
 
-const addNewProduct = async (productName, productCategory, productPrice, productImage) => {
-    //const navigation = useNavigation();
-    const showSuccessToast = () => {
-        Toast.show({
-          type: 'success',
-          text1: 'New product added.'
-        });
-    }
 
-    const showWarningToast = () => {
-        Toast.show({
-          type: 'info',
-          text1: 'Please fill out the form below 👇.'
-        });
-    }
-
-    const showErrorToast = () => {
-        Toast.show({
-          type: 'error',
-          text1: 'Add product failed.'
-        });
-    }
-
-    if(productName != null && productCategory !=null && productPrice != null && productImage != null){
-        console.log(
-            productName + "\n" + 
-            productCategory + "\n" + 
-            productPrice + "\n" + 
-            productImage
-        )
-        await axios.post('https://api.keyboardslinger.club/api/Products',{
-            name: productName,
-            image: productImage,
-            price: productPrice,
-            productCategoryId: productCategory
-        })
-        .then(function (response) {
-            console.log(response.data);
-            if(response.data.succeeded){
-              showSuccessToast();
-              //navigation.goBack()
-              //console.log("add product success")
-            } else {
-              showErrorToast();
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    } else{
-        showWarningToast();
-    }
-}
 
 
 const ProductInput = () => {
@@ -91,6 +39,60 @@ const ProductInput = () => {
     const [productPrice, onChangeProductPrice] = React.useState(null);
     const [productImage, onChangeProductImage] = React.useState(null);
     const [productCategory, onChangeProductCategory] = React.useState(null);
+
+    const addNewProduct = async (productName, productCategory, productPrice, productImage) => {
+        //const navigation = useNavigation();
+        const showSuccessToast = () => {
+            Toast.show({
+              type: 'success',
+              text1: 'New product added.'
+            });
+        }
+    
+        const showWarningToast = () => {
+            Toast.show({
+              type: 'info',
+              text1: 'Please fill out the form below 👇.'
+            });
+        }
+    
+        const showErrorToast = () => {
+            Toast.show({
+              type: 'error',
+              text1: 'Add product failed.'
+            });
+        }
+    
+        if(productName != null && productCategory !=null && productPrice != null && productImage != null){
+            console.log(
+                productName + "\n" + 
+                productCategory + "\n" + 
+                productPrice + "\n" + 
+                productImage
+            )
+            await axios.post('https://api.keyboardslinger.club/api/Products',{
+                name: productName,
+                image: productImage,
+                price: productPrice,
+                productCategoryId: productCategory
+            })
+            .then(function (response) {
+                console.log(response.data);
+                if(response.data.succeeded){
+                  showSuccessToast();
+                  navigation.goBack()
+                  //console.log("add product success")
+                } else {
+                  showErrorToast();
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        } else{
+            showWarningToast();
+        }
+    }
 
     return(
         <SafeAreaView style={styles.container}>
