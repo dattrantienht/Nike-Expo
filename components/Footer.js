@@ -7,9 +7,9 @@ class shop extends Component{
 		return (
 			<View style={StyleSheet.footer}>
 				<TouchableOpacity onPress={()=>Linking.openURL('https://www.facebook.com/Ninja-In-PyJamas-102421947783975')}>
-          <Text style={{ fontSize:17 }}>                   Find a Store </Text>
+          <Text style={{ fontSize:17,color:'red' }}>                   Find a Store </Text>
  </TouchableOpacity>
-              <Text style={{ fontSize:17 }}>             Become a Member </Text>
+              <Text style={{ fontSize:17,color:'red' }}>             Become a Member </Text>
 			  <View style={{flexDirection: 'row'}}>
                 <SocialIcon
                   type="facebook"
@@ -33,7 +33,7 @@ class shop extends Component{
 const styles = StyleSheet.create({
 	
 	footer:{
-		backgroundColor:'white',
+		backgroundColor:'#000000',
 		justifyContent:'center',
 		alignItems:'center',
 		height:30,
