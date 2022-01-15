@@ -25,21 +25,13 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
 import nike from './assets/nike.png'
-import mycat from './assets/nike.jpg'
+import mycat from './assets/nike.png'
 
-import login from './components/Login';
 import cat from './components/Cat';
-
-
-
+import login from './components/Login';
 import product from './components/Product';
-
 import productCategory from './components/ProductCategory';
-// import shop from './components/Shop';
-import shop from './components/Products/ProductsScreen';
-
-
-
+import shop from './components/Shop';
 import userManage from './components/UserManage';
 import team from './components/Team';
 import chat from './components/Chat';

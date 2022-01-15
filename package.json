@@ -10,7 +10,6 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@react-native-community/geolocation": "^2.0.2",
     "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/drawer": "^6.1.8",
     "@react-navigation/native": "^6.0.6",
@@ -20,21 +19,18 @@
     "expo-secure-store": "~11.0.3",
     "expo-status-bar": "~1.1.0",
     "expo-system-ui": "^1.0.0",
-    "http-proxy-middleware": "^2.0.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
     "react-native-banner-carousel": "^1.0.3",
+    "react-native-communications": "^2.2.1",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~1.10.2",
-    "react-native-image-slider-banner": "^1.0.2",
     "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "~3.8.0",
-    "react-native-view-slider": "^1.1.1",
-    "react-native-web": "0.17.1",
-    "react-number-format": "^4.9.0",
-    "styled-components": "^5.3.3"
+    "react-native-table-component": "^1.2.1",
+    "react-native-web": "0.17.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

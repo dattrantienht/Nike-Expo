@@ -6,7 +6,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import GetCategory from './Categories/GetCategory';
 import AddCategory from './Categories/AddCategory';
 
-export default function productCategory() {
+export default function ProductCategory() {
   const { colors } = useTheme();
     return (
       <ScrollView >
