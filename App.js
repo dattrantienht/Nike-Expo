@@ -69,11 +69,11 @@ function CustomDrawerContent(props) {
       
       <DrawerItemList {...props} />
 
-      {/* <DrawerItem 
+      <DrawerItem 
         label="Team"
         onPress={() => props.navigation.navigate('Team')}
         icon={({color, size}) =><AntDesign name="team" size={size} color={color} />}
-      /> */}
+      />
 
       <DrawerItem 
         label="Product"
