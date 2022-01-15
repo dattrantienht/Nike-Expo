@@ -38,7 +38,7 @@ export default class App extends Component {
 
         <Text
           style={{ textAlign: "center", fontSize: 18, paddingVertical: 30 }}>
-        Luôn luôn lắng nghe, lâu lâu trả lời.
+        Chúng tôi luôn tiếp nhận mọi phản hồi từ bạn.
         </Text>
 
         <TextInput
@@ -70,10 +70,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     padding: 30,
-    backgroundColor: "#ffffff"
+    backgroundColor: "#F0ECE3"
   },
   input: {
-    
     width: 280,
     height: 100,
     padding: 10,
