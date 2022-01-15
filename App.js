@@ -105,6 +105,20 @@ function StackNav(){
   const { colors } = useTheme();
   const navigation = useNavigation();
   
+  const cardStyle = ({ current, layouts }) => ({
+    cardStyle: {
+      transform: [
+        {
+          translateY: current.progress.interpolate({
+            inputRange: [0, 1],
+            outputRange: [layouts.screen.height, 0],
+          }),
+        },
+      ],
+    },
+  })
+
+  
   return(
     <Stack.Navigator>
       <Stack.Screen name="DrawerNav" component={DrawerNav} options={{headerShown: false}} />
@@ -129,18 +143,7 @@ function StackNav(){
         options={{ 
           presentation: 'transparentModal',
           headerShown: false,
-          cardStyleInterpolator: ({ current, layouts }) => ({
-            cardStyle: {
-              transform: [
-                {
-                  translateY: current.progress.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [layouts.screen.height, 0],
-                  }),
-                },
-              ],
-            },
-          }),
+          cardStyleInterpolator: cardStyle,
         }}
       />
       <Stack.Screen
@@ -149,18 +152,7 @@ function StackNav(){
         options={{ 
           presentation: 'transparentModal',
           headerShown: false,
-          cardStyleInterpolator: ({ current, layouts }) => ({
-            cardStyle: {
-              transform: [
-                {
-                  translateY: current.progress.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [layouts.screen.height, 0],
-                  }),
-                },
-              ],
-            },
-          }),
+          cardStyleInterpolator: cardStyle,
         }}
       />
       <Stack.Screen 
@@ -183,18 +175,7 @@ function StackNav(){
         options={{ 
           presentation: 'transparentModal',
           headerShown: false,
-          cardStyleInterpolator: ({ current, layouts }) => ({
-            cardStyle: {
-              transform: [
-                {
-                  translateY: current.progress.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [layouts.screen.height, 0],
-                  }),
-                },
-              ],
-            },
-          }),
+          cardStyleInterpolator: cardStyle,
         }}
       />
       <Stack.Screen
@@ -203,18 +184,7 @@ function StackNav(){
         options={{ 
           presentation: 'transparentModal',
           headerShown: false,
-          cardStyleInterpolator: ({ current, layouts }) => ({
-            cardStyle: {
-              transform: [
-                {
-                  translateY: current.progress.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [layouts.screen.height, 0],
-                  }),
-                },
-              ],
-            },
-          }),
+          cardStyleInterpolator: cardStyle,
         }}
       />
       <Stack.Screen name="User Manage" component={userManage} />
