@@ -24,11 +24,17 @@ async function getProductToEdit(id) {
   }
 }
 
-const ProductInput = () => {
+const ProductInput = (props) => {
     const { colors } = useTheme();
     const navigation = useNavigation();
     const isFocused = useIsFocused();
     const [categories, setCategories] = useState([]);
+
+    const [productName, onChangeProductName] = React.useState(null);
+    const [productPrice, onChangeProductPrice] = React.useState(null);
+    const [productImage, onChangeProductImage] = React.useState(null);
+    const [productCategory, onChangeProductCategory] = React.useState(null);
+
     useEffect( async ()=>{
       await getListCategory();
       if(listCategory.length>0){
@@ -42,13 +48,9 @@ const ProductInput = () => {
           if(isFocused){
             setCategories(options);
           }
-          
       }
+      
     },[isFocused]);
-    const [productName, onChangeProductName] = React.useState(null);
-    const [productPrice, onChangeProductPrice] = React.useState(null);
-    const [productImage, onChangeProductImage] = React.useState(null);
-    const [productCategory, onChangeProductCategory] = React.useState(null);
 
     return(
         <SafeAreaView style={styles.container}>
@@ -116,11 +118,32 @@ const ProductInput = () => {
 export default function EditProduct({route}) {
   const { colors } = useTheme();
   const isFocused = useIsFocused();
+  const navigation = useNavigation();
+
   const {id} = route.params;
   console.log("id passed to: "+id);
 
   const[product,setProductToEdit] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [productName, onChangeProductName] = React.useState(null);
+  const [productPrice, onChangeProductPrice] = React.useState(null);
+  const [productImage, onChangeProductImage] = React.useState(null);
+  const [productCategory, onChangeProductCategory] = React.useState(null);
+
   useEffect(async()=>{
+    await getListCategory();
+    if(listCategory.length>0){
+      let options = []
+      for(let i = 0; i < listCategory.length; i++){
+        options.push({
+            label: listCategory[i].name,
+            value: listCategory[i].id
+        })
+      }
+      if(isFocused){
+        setCategories(options);
+      }
+    }
     if(isFocused){
       await getProductToEdit(id);
       setProductToEdit({
@@ -130,20 +153,83 @@ export default function EditProduct({route}) {
         price: productToEdit.price,
         image: productToEdit.image, 
       });
+      
     }
   },[isFocused]);
 
   if(isFocused){
-  console.log(product); //need to read the updated value in render function (not inside nested functions 😒)
+  console.log(product.name);
 }
 
     return (
       <View style={[styles.container,{backgroundColor:colors.background}]}>
-        <ProductInput/>
+        <SafeAreaView style={styles.container}>
+            <Text style={[styles.text,{color:colors.text}]}>EDIT PRODUCT</Text>
+            <TextInput 
+                style={[styles.input,{borderColor:colors.border, color:colors.text}]} 
+                onChangeText={text => onChangeProductName(text)} 
+                value={productName}
+                placeholder="Product name"
+                placeholderTextColor={colors.text} 
+            />
+            <RNPickerSelect
+                onValueChange={(value) => {
+                    console.log(value);
+                    onChangeProductCategory(value);
+                }}
+                placeholder={{
+                    label: 'Select category',
+                    value: null,
+                    color: colors.text
+                  }}
+                items={categories}
+                style={{
+                    inputAndroid: {
+                      backgroundColor: 'transparent',
+                      color:colors.text
+                    }
+                  }}
+            />
+            <TextInput 
+                style={[styles.input,{borderColor:colors.border, color:colors.text}]} 
+                onChangeText={text => onChangeProductPrice(text)} 
+                value={productPrice}
+                placeholder="Price"
+                placeholderTextColor={colors.text} 
+            />
+            <TextInput 
+                style={[styles.input,{borderColor:colors.border, color:colors.text}]} 
+                onChangeText={text => onChangeProductImage(text)} 
+                value={productImage}
+                placeholder="Image URI"
+                placeholderTextColor={colors.text} 
+            />
+            <View style={styles.buttonRow}>
+                <Button
+                    style={styles.button}
+                    onPress={()=>console.log("update product")}
+                    title="Update Product"
+                    color={colors.primary}
+                />
+                <Text>     </Text>
+                <Button
+                    onPress={() => navigation.goBack()}
+                    title="Cancel"
+                    color="#7B241C"
+                />
+            </View>
+           
+        </SafeAreaView>
       </View>
     );
 }
   
+
+
+
+
+
+
   const styles = StyleSheet.create({
     container: {flex: 1,  alignItems: 'center', justifyContent: 'center'},
     text:{
