@@ -64,7 +64,7 @@ const ProductInput = () => {
               text1: 'Add product failed 😨.'
             });
         }
-    
+
         if(productName != null && productCategory !=null && productPrice != null && productImage != null){
             console.log(
                 productName + "\n" + 
