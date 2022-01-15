@@ -47,21 +47,21 @@ const ProductInput = () => {
         const showSuccessToast = () => {
             Toast.show({
               type: 'success',
-              text1: 'New product added.'
+              text1: 'New product added 😊👌.'
             });
         }
     
         const showWarningToast = () => {
             Toast.show({
               type: 'info',
-              text1: 'Please fill out the form below 👇.'
+              text1: 'Please fill out the form below 😑👇.'
             });
         }
     
         const showErrorToast = () => {
             Toast.show({
               type: 'error',
-              text1: 'Add product failed.'
+              text1: 'Add product failed 😨.'
             });
         }
     
@@ -128,7 +128,8 @@ const ProductInput = () => {
                 onChangeText={text => onChangeProductPrice(text)} 
                 value={productPrice}
                 placeholder="Price"
-                placeholderTextColor={colors.text} 
+                placeholderTextColor={colors.text}
+                keyboardType='numeric'
             />
             <TextInput 
                 style={[styles.input,{borderColor:colors.border, color:colors.text}]} 

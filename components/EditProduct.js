@@ -73,29 +73,25 @@ export default function EditProduct({route}) {
     onChangeProductImage(product.image);
   },[product])
 
-  // if(isFocused){
-  // console.log(product);
-  // }
-  
   const updateProduct = async (productName, productCategory, productPrice, productImage) => {
     const showSuccessToast = () => {
         Toast.show({
           type: 'success',
-          text1: 'New product added.'
+          text1: 'Product updated 😺👌.'
         });
     }
 
     const showWarningToast = () => {
         Toast.show({
           type: 'info',
-          text1: 'Please fill out the form below 👇.'
+          text1: 'Please fill out the form below 😾👇.'
         });
     }
 
     const showErrorToast = () => {
         Toast.show({
           type: 'error',
-          text1: 'Add product failed.'
+          text1: 'Update product failed 🙀.'
         });
     }
 
@@ -114,7 +110,6 @@ export default function EditProduct({route}) {
             productCategoryId: productCategory
         })
         .then(function (response) {
-            //console.log(response.data);
             if(response.data.succeeded){
               showSuccessToast();
               navigation.goBack()
@@ -134,7 +129,7 @@ export default function EditProduct({route}) {
       <View style={[styles.container,{backgroundColor:colors.background}]}>
         <SafeAreaView style={[styles.container,{backgroundColor:colors.background}]}>
             <Text style={[styles.text,{color:colors.text}]}>EDIT PRODUCT</Text>
-            <TextInput 
+            <TextInput
                 style={[styles.input,{borderColor:colors.border, color:colors.text}]} 
                 onChangeText={text => onChangeProductName(text)} 
                 value={productName}
@@ -188,18 +183,11 @@ export default function EditProduct({route}) {
                     color="#7B241C"
                 />
             </View>
-           
         </SafeAreaView>
       </View>
     );
 }
   
-
-
-
-
-
-
   const styles = StyleSheet.create({
     container: {flex: 1,  alignItems: 'center', justifyContent: 'center'},
     text:{
