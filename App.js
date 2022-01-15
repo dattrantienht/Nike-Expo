@@ -44,6 +44,7 @@ import team from './components/Team';
 import chat from './components/Chat';
 import addProduct from './components/AddProduct'
 import EditProduct from './components/EditProduct';
+import AddProductCategory from './components/AddProductCategory';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -161,7 +162,40 @@ function StackNav(){
           }),
         }}
       />
-      <Stack.Screen name="Product Category" component={productCategory} />
+      <Stack.Screen 
+        name="Product Category" 
+        component={productCategory}
+        options={{
+          headerRight: () => (
+            <TouchableOpacity
+              style={{marginRight:10}}
+              onPress={() => navigation.navigate('Add Product Category')}
+            >
+              <MaterialIcons name="add-circle-outline" size={35} color={colors.text} />
+            </TouchableOpacity>
+          ),
+        }} 
+      />
+      <Stack.Screen
+        name="Add Product Category"
+        component={AddProductCategory}
+        options={{ 
+          presentation: 'transparentModal',
+          headerShown: false,
+          cardStyleInterpolator: ({ current, layouts }) => ({
+            cardStyle: {
+              transform: [
+                {
+                  translateY: current.progress.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [layouts.screen.height, 0],
+                  }),
+                },
+              ],
+            },
+          }),
+        }}
+      />
       <Stack.Screen name="User Manage" component={userManage} />
       <Stack.Screen name="login" component={login} />
     </Stack.Navigator>
