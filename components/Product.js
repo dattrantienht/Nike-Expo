@@ -40,7 +40,6 @@ export default function Product() {
   const [items, setItems] = useState([]);
 
   useEffect( async ()=>{
-    console.log("useEffect list product fire")
     if(isFocused){
       await getListProduct();
       setItems(listProduct);
@@ -94,7 +93,7 @@ export default function Product() {
     deleteAlert(name,rowKey);
   };
   const onRowDidOpen = rowKey => {
-    console.log('This row opened', rowKey);
+    //console.log('This row opened', rowKey);
   };
   const renderItem = data => (
     <TouchableHighlight

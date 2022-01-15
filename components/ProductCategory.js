@@ -39,7 +39,6 @@ export default function ProductCategory() {
   const [items, setItems] = useState([]);
   
   useEffect( async ()=>{
-    console.log("useEffect list product category fire")
     if(isFocused){
       await getListProductCategory();
       setItems(listProductCategory);
@@ -93,7 +92,7 @@ export default function ProductCategory() {
     deleteAlert(name,rowKey);
   };
   const onRowDidOpen = rowKey => {
-    console.log('This row opened', rowKey);
+    //console.log('This row opened', rowKey);
   };
   const renderItem = data => (
     <TouchableHighlight

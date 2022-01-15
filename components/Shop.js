@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { StatusBar, StyleSheet, Image, Text, View, FlatList } from 'react-native';
 import { useTheme, useIsFocused } from '@react-navigation/native';
-
+import Footer from './Footer';
 let listProduct;
 
 async function getListProduct() {
@@ -39,7 +39,6 @@ export default function Shop() {
   );
 
   useEffect( async ()=>{
-    console.log("useEffect shop fire")
     await getListProduct();
     setItems(listProduct)
   },[isFocused]);
@@ -53,6 +52,7 @@ export default function Shop() {
         keyExtractor={item => item.id}
         numColumns={2}
       />
+      <Footer/>
     </View>
   );
 }
