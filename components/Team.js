@@ -35,7 +35,7 @@ export default class ExampleOne extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 25,
     paddingTop: 50,
     backgroundColor: '#1F1D36'
   },
