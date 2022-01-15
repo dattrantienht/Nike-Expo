@@ -33,9 +33,9 @@ export default class chat extends Component {
     return (
       <View style={styles.container}>
         <Text
-          style={{ textAlign: "center", fontSize: 20, paddingVertical: 30 }}
+          style={{ textAlign: "center", fontSize: 20, paddingVertical: 30, color:"#3E9CFF" }}
         >
-          Hãy phản hồi cho chúng tôi .
+          Hãy phản hồi cho chúng tôi.
         </Text>
         <TextInput
           value={this.state.bodayText}
@@ -47,7 +47,7 @@ export default class chat extends Component {
           <Button onPress={this.openEmail} title="Gửi" />
         </View>
         <TouchableOpacity onPress={()=>Linking.openURL('https://www.facebook.com/Ninja-In-PyJamas-102421947783975')}>
-        <Text> Click vào đây để liên hệ trực tiếp tới chung tôi </Text>
+        <Text style={{color:"#3E9CFF"}}> Click vào đây để liên hệ trực tiếp tới chung tôi </Text>
         </TouchableOpacity>
       </View>
     );
@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     padding: 25,
-    backgroundColor: "#ffffff"
   },
   input: {
     width: 255,
