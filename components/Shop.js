@@ -14,13 +14,19 @@ async function getListProduct() {
   }
 }
 
+const format = amount => {
+  return Number(amount)
+    .toFixed(1)
+    .replace(/\d(?=(\d{3})+\.)/g, '$&,');
+};
+
 const Product = ({colors, name, price, image }) => (
   <View style={[styles.item,{backgroundColor:colors.background}]}>
     <Text style={[styles.productName,{color:colors.text}]}>{name}</Text>
     <Image
       style={styles.productImage}
       source={{uri: image}}/>
-    <Text style={[styles.productPrice,{color:colors.text}]}>{price}</Text>
+    <Text style={[styles.productPrice,{color:colors.text}]}>₫ {format(price)}</Text>
   </View>
 );
 
