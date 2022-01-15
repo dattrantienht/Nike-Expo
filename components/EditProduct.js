@@ -6,6 +6,7 @@ import RNPickerSelect from 'react-native-picker-select';
 import Toast from 'react-native-toast-message';
 
 let listCategory;
+let productToEdit;
 async function getListCategory() {
     try {
         const response = await axios.get('https://api.keyboardslinger.club/api/ProductCategories');
@@ -14,6 +15,14 @@ async function getListCategory() {
         console.error(error);
     }
 }
+async function getProductToEdit(id) {
+  try {
+      const response = await axios.get('https://api.keyboardslinger.club/api/Products/'+id);
+      productToEdit = response.data.data;
+  } catch (error) {
+      console.error(error);
+  }
+}
 
 const ProductInput = () => {
     const { colors } = useTheme();
@@ -21,7 +30,6 @@ const ProductInput = () => {
     const isFocused = useIsFocused();
     const [categories, setCategories] = useState([]);
     useEffect( async ()=>{
-      console.log("useEffect add product fire")
       await getListCategory();
       if(listCategory.length>0){
           let options = []
@@ -107,14 +115,34 @@ const ProductInput = () => {
 
 export default function EditProduct({route}) {
   const { colors } = useTheme();
+  const isFocused = useIsFocused();
   const {id} = route.params;
   console.log("id passed to: "+id);
+
+  const[product,setProductToEdit] = useState([]);
+  useEffect(async()=>{
+    if(isFocused){
+      await getProductToEdit(id);
+      setProductToEdit({
+        id: productToEdit.id,
+        name: productToEdit.name,
+        productCategoryId: productToEdit.productCategoryId,
+        price: productToEdit.price,
+        image: productToEdit.image, 
+      });
+    }
+  },[isFocused]);
+
+  if(isFocused){
+  console.log(product); //need to read the updated value in render function (not inside nested functions 😒)
+}
+
     return (
       <View style={[styles.container,{backgroundColor:colors.background}]}>
         <ProductInput/>
       </View>
     );
-  }
+}
   
   const styles = StyleSheet.create({
     container: {flex: 1,  alignItems: 'center', justifyContent: 'center'},
