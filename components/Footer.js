@@ -1,3 +1,4 @@
+// npm install react-native-elements --save
 import React, { Component } from 'react';
 import { StyleSheet,Text, Image, View, Linking, TouchableOpacity } from 'react-native';
 import {SocialIcon} from 'react-native-elements';
