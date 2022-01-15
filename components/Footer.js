@@ -1,15 +1,14 @@
-// npm install react-native-elements --save
 import React, { Component } from 'react';
-import { StyleSheet,Text, Image, View, Linking, TouchableOpacity } from 'react-native';
+import { StyleSheet,Text, View, Linking, TouchableOpacity } from 'react-native';
 import {SocialIcon} from 'react-native-elements';
-class shop extends Component{
+class Footer extends Component{
 	render (){
 		return (
-			<View style={StyleSheet.footer}>
+			<View>
 				<TouchableOpacity onPress={()=>Linking.openURL('https://www.facebook.com/Ninja-In-PyJamas-102421947783975')}>
-          <Text style={{ fontSize:17,color:'red' }}>                   Find a Store </Text>
+          <Text style={{ fontSize:17,color:'#3E9CFF' }}>                   Find a Store </Text>
  </TouchableOpacity>
-              <Text style={{ fontSize:17,color:'red' }}>             Become a Member </Text>
+              <Text style={{ fontSize:17,color:'#3E9CFF' }}>             Become a Member </Text>
 			  <View style={{flexDirection: 'row'}}>
                 <SocialIcon
                   type="facebook"
@@ -30,14 +29,4 @@ class shop extends Component{
 	}
 }
 
-const styles = StyleSheet.create({
-	
-	footer:{
-		backgroundColor:'#000000',
-		justifyContent:'center',
-		alignItems:'center',
-		height:30,
-
-	}
-})
-export default shop
+export default Footer
