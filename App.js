@@ -264,7 +264,7 @@ function TabNav({navigation}) {
           component={chat}
           options={
             {
-              title: 'Chat',
+              title: 'Contact',
               tabBarIcon: ({color, size}) =><MaterialIcons name="message" size={size} color={color} />,
             }
           }
