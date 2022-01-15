@@ -131,20 +131,21 @@ export default function EditProduct({route}) {
   const [productCategory, onChangeProductCategory] = React.useState(null);
 
   useEffect(async()=>{
-    await getListCategory();
-    if(listCategory.length>0){
-      let options = []
-      for(let i = 0; i < listCategory.length; i++){
-        options.push({
-            label: listCategory[i].name,
-            value: listCategory[i].id
-        })
-      }
-      if(isFocused){
-        setCategories(options);
-      }
-    }
     if(isFocused){
+      await getListCategory();
+      if(listCategory.length>0){
+        let options = []
+        for(let i = 0; i < listCategory.length; i++){
+          options.push({
+              label: listCategory[i].name,
+              value: listCategory[i].id
+          })
+        }
+        if(isFocused){
+          setCategories(options);
+        }
+      }
+
       await getProductToEdit(id);
       setProductToEdit({
         id: productToEdit.id,
@@ -158,8 +159,8 @@ export default function EditProduct({route}) {
   },[isFocused]);
 
   if(isFocused){
-  console.log(product.name);
-}
+  console.log(product);
+  }
 
     return (
       <View style={[styles.container,{backgroundColor:colors.background}]}>

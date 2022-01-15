@@ -41,8 +41,8 @@ export default function Product() {
 
   useEffect( async ()=>{
     console.log("useEffect list product fire")
-    await getListProduct();
     if(isFocused){
+      await getListProduct();
       setItems(listProduct)
     }
     
