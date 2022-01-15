@@ -78,6 +78,59 @@ export default function EditProduct({route}) {
   console.log(product);
   }
 
+  const updateProduct = async (productName, productCategory, productPrice, productImage) => {
+    const showSuccessToast = () => {
+        Toast.show({
+          type: 'success',
+          text1: 'New product added.'
+        });
+    }
+
+    const showWarningToast = () => {
+        Toast.show({
+          type: 'info',
+          text1: 'Please fill out the form below 👇.'
+        });
+    }
+
+    const showErrorToast = () => {
+        Toast.show({
+          type: 'error',
+          text1: 'Add product failed.'
+        });
+    }
+
+    if(productName != null && productCategory !=null && productPrice != null && productImage != null){
+        console.log(
+            productName + "\n" + 
+            productCategory + "\n" + 
+            productPrice + "\n" + 
+            productImage
+        )
+        await axios.put('https://api.keyboardslinger.club/api/Products',{
+            id: product.id,
+            name: productName,
+            image: productImage,
+            price: productPrice,
+            productCategoryId: productCategory
+        })
+        .then(function (response) {
+            console.log(response.data);
+            if(response.data.succeeded){
+              showSuccessToast();
+              navigation.goBack()
+            } else {
+              showErrorToast();
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    } else{
+        showWarningToast();
+    }
+}
+
     return (
       <View style={[styles.container,{backgroundColor:colors.background}]}>
         <SafeAreaView style={[styles.container,{backgroundColor:colors.background}]}>
@@ -126,7 +179,7 @@ export default function EditProduct({route}) {
             <View style={styles.buttonRow}>
                 <Button
                     style={styles.button}
-                    onPress={()=>console.log("update product")}
+                    onPress={()=>updateProduct(productName,productCategory,productPrice,productImage)}
                     title="Update Product"
                     color={colors.primary}
                 />
