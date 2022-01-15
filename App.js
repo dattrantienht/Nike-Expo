@@ -6,7 +6,7 @@ import {
   View,
   Image,
   Text,
-  TouchableOpacity 
+  TouchableOpacity,
 } from 'react-native';
 import { 
   createDrawerNavigator,
@@ -15,8 +15,15 @@ import {
   DrawerItem, 
 } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer, useTheme, DefaultTheme, DarkTheme,} from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { 
+  NavigationContainer, 
+  useNavigation, 
+  useTheme, 
+  DefaultTheme, 
+  DarkTheme,
+} from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -25,7 +32,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
 import nike from './assets/nike.png'
-import mycat from './assets/nike.png'
+import nikeColor from './assets/nikeColor.png'
 
 import cat from './components/Cat';
 import login from './components/Login';
@@ -35,10 +42,14 @@ import shop from './components/Shop';
 import userManage from './components/UserManage';
 import team from './components/Team';
 import chat from './components/Chat';
+import addProduct from './components/AddProduct'
+import EditProduct from './components/EditProduct';
+import AddProductCategory from './components/AddProductCategory';
+import EditProductCategory from './components/EditProductCategory';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 function LogoTitle() {
   return (
@@ -50,18 +61,20 @@ function CustomDrawerContent(props) {
   const { colors } = useTheme();
   return (
     <DrawerContentScrollView {...props}>
+
       <View style={styles.container}>
-      <Image source={mycat} style={{ width: 210, height: 200, marginBottom: 20 }} />
+        <Image source={nikeColor} style={{ width: 250, height: 125, marginBottom: 20, marginTop: 20 }} />
         <Text style={[styles.text,{color:colors.text}]}> </Text>
       </View>
       
       <DrawerItemList {...props} />
 
-      <DrawerItem 
+      {/* <DrawerItem 
         label="Team"
         onPress={() => props.navigation.navigate('Team')}
         icon={({color, size}) =><AntDesign name="team" size={size} color={color} />}
-      />
+      /> */}
+
       <DrawerItem 
         label="Product"
         onPress={() => props.navigation.navigate('Product')}
@@ -72,7 +85,8 @@ function CustomDrawerContent(props) {
         onPress={() => props.navigation.navigate('Product Category')}
         icon={({color, size}) =><Entypo name="bookmarks" size={size} color={color} />}
       />
-      <DrawerItem 
+
+      {/* <DrawerItem 
         label="User Manage"
         onPress={() => props.navigation.navigate('User Manage')}
         icon={({color, size}) =><FontAwesome5 name="users-cog" size={size} color={color} />}
@@ -81,18 +95,98 @@ function CustomDrawerContent(props) {
         label="Login" 
         onPress={() => props.navigation.navigate('login')}
         icon={({color, size}) =><MaterialCommunityIcons name="login" size={size} color={color} />}
-      />
+      /> */}
+
     </DrawerContentScrollView>
   );
 }
 
 function StackNav(){
+  const { colors } = useTheme();
+  const navigation = useNavigation();
+  
+  const cardStyle = ({ current, layouts }) => ({
+    cardStyle: {
+      transform: [
+        {
+          translateY: current.progress.interpolate({
+            inputRange: [0, 1],
+            outputRange: [layouts.screen.height, 0],
+          }),
+        },
+      ],
+    },
+  })
+
+  
   return(
     <Stack.Navigator>
       <Stack.Screen name="DrawerNav" component={DrawerNav} options={{headerShown: false}} />
       <Stack.Screen name="Team" component={team} />
-      <Stack.Screen name="Product" component={product} />
-      <Stack.Screen name="Product Category" component={productCategory} />
+      <Stack.Screen 
+        name="Product" 
+        component={product} 
+        options={{
+          headerRight: () => (
+            <TouchableOpacity
+              style={{marginRight:10}}
+              onPress={() => navigation.navigate('Add Product')}
+            >
+              <MaterialIcons name="add-circle-outline" size={35} color={colors.text} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Add Product"
+        component={addProduct}
+        options={{ 
+          presentation: 'transparentModal',
+          headerShown: false,
+          cardStyleInterpolator: cardStyle,
+        }}
+      />
+      <Stack.Screen
+        name="Edit Product"
+        component={EditProduct}
+        options={{ 
+          presentation: 'transparentModal',
+          headerShown: false,
+          cardStyleInterpolator: cardStyle,
+        }}
+      />
+      <Stack.Screen 
+        name="Product Category" 
+        component={productCategory}
+        options={{
+          headerRight: () => (
+            <TouchableOpacity
+              style={{marginRight:10}}
+              onPress={() => navigation.navigate('Add Product Category')}
+            >
+              <MaterialIcons name="add-circle-outline" size={35} color={colors.text} />
+            </TouchableOpacity>
+          ),
+        }} 
+      />
+      <Stack.Screen
+        name="Add Product Category"
+        component={AddProductCategory}
+        options={{ 
+          presentation: 'transparentModal',
+          headerShown: false,
+          cardStyleInterpolator: cardStyle,
+        }}
+      />
+      <Stack.Screen
+        name="Edit Product Category"
+        component={EditProductCategory}
+        options={{ 
+          presentation: 'transparentModal',
+          headerShown: false,
+          cardStyleInterpolator: cardStyle,
+        }}
+      />
       <Stack.Screen name="User Manage" component={userManage} />
       <Stack.Screen name="login" component={login} />
     </Stack.Navigator>
@@ -187,6 +281,7 @@ export default function App() {
 
       <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
         <StackNav/>
+        <Toast />
       </NavigationContainer>
 
   );
