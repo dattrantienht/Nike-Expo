@@ -60,7 +60,7 @@ export default function EditProduct({route}) {
         id: productToEdit.id,
         name: productToEdit.name,
         productCategoryId: productToEdit.productCategoryId,
-        price: productToEdit.price,
+        price: productToEdit.price.toString(),
         image: productToEdit.image, 
       });
       
@@ -69,6 +69,9 @@ export default function EditProduct({route}) {
 
   useEffect(()=>{
     onChangeProductName(product.name);
+    onChangeProductCategory(product.productCategoryId);
+    onChangeProductPrice(product.price);
+    onChangeProductImage(product.image);
   },[product])
 
   if(isFocused){
@@ -87,6 +90,7 @@ export default function EditProduct({route}) {
                 placeholderTextColor={colors.text} 
             />
             <RNPickerSelect
+                value={productCategory}
                 onValueChange={(value) => {
                     console.log(value);
                     onChangeProductCategory(value);
@@ -109,7 +113,8 @@ export default function EditProduct({route}) {
                 onChangeText={text => onChangeProductPrice(text)} 
                 value={productPrice}
                 placeholder="Price"
-                placeholderTextColor={colors.text} 
+                placeholderTextColor={colors.text}
+                keyboardType='numeric'
             />
             <TextInput 
                 style={[styles.input,{borderColor:colors.border, color:colors.text}]} 
