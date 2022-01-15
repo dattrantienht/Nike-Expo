@@ -105,8 +105,10 @@ const ProductInput = () => {
 }
 
 
-export default function EditProduct() {
+export default function EditProduct({route}) {
   const { colors } = useTheme();
+  const {id} = route.params;
+  console.log("id passed to: "+id);
     return (
       <View style={[styles.container,{backgroundColor:colors.background}]}>
         <ProductInput/>

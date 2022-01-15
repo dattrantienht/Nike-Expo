@@ -74,11 +74,9 @@ export default function Product() {
     [
       {
         text: "No",
-        onPress: () => console.log("No Pressed"),
         style: "cancel"
       },
       { text: "Yes", onPress: () => {
-        console.log("Yes Pressed");
         requestDeleteProduct(id,name);
       }}
     ],
@@ -89,7 +87,9 @@ export default function Product() {
 
   const editProduct = (rowMap, rowKey) => {
     console.log("edit " + rowKey);
-    navigation.navigate('Edit Product')
+    navigation.navigate('Edit Product',{
+      id: rowKey
+    });
   };
   const deleteProduct = (rowMap, name, rowKey) => {
     console.log("delete " + rowKey);
@@ -135,11 +135,6 @@ export default function Product() {
         </TouchableOpacity>
     </View>
   );
-
-  const clickHandler = () => {
-    //function to handle click on floating Action Button
-    alert('Floating Button Clicked');
-  };
 
     return (
       <View style={[styles.container,{backgroundColor:colors.background}]}>
