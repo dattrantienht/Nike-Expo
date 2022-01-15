@@ -30,7 +30,6 @@ export default function EditProduct({route}) {
   const navigation = useNavigation();
 
   const {id} = route.params;
-  console.log("id passed to: "+id);
 
   const[product,setProductToEdit] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -74,10 +73,10 @@ export default function EditProduct({route}) {
     onChangeProductImage(product.image);
   },[product])
 
-  if(isFocused){
-  console.log(product);
-  }
-
+  // if(isFocused){
+  // console.log(product);
+  // }
+  
   const updateProduct = async (productName, productCategory, productPrice, productImage) => {
     const showSuccessToast = () => {
         Toast.show({
@@ -115,7 +114,7 @@ export default function EditProduct({route}) {
             productCategoryId: productCategory
         })
         .then(function (response) {
-            console.log(response.data);
+            //console.log(response.data);
             if(response.data.succeeded){
               showSuccessToast();
               navigation.goBack()
@@ -145,7 +144,6 @@ export default function EditProduct({route}) {
             <RNPickerSelect
                 value={productCategory}
                 onValueChange={(value) => {
-                    console.log(value);
                     onChangeProductCategory(value);
                 }}
                 placeholder={{
