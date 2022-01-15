@@ -45,6 +45,7 @@ import chat from './components/Chat';
 import addProduct from './components/AddProduct'
 import EditProduct from './components/EditProduct';
 import AddProductCategory from './components/AddProductCategory';
+import EditProductCategory from './components/EditProductCategory';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -179,6 +180,26 @@ function StackNav(){
       <Stack.Screen
         name="Add Product Category"
         component={AddProductCategory}
+        options={{ 
+          presentation: 'transparentModal',
+          headerShown: false,
+          cardStyleInterpolator: ({ current, layouts }) => ({
+            cardStyle: {
+              transform: [
+                {
+                  translateY: current.progress.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [layouts.screen.height, 0],
+                  }),
+                },
+              ],
+            },
+          }),
+        }}
+      />
+      <Stack.Screen
+        name="Edit Product Category"
+        component={EditProductCategory}
         options={{ 
           presentation: 'transparentModal',
           headerShown: false,

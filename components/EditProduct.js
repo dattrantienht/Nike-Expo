@@ -31,7 +31,7 @@ export default function EditProduct({route}) {
 
   const {id} = route.params;
 
-  const[product,setProductToEdit] = useState([]);
+  const [product,setProductToEdit] = useState([]);
   const [categories, setCategories] = useState([]);
   const [productName, onChangeProductName] = React.useState(null);
   const [productPrice, onChangeProductPrice] = React.useState(null);

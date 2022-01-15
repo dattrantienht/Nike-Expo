@@ -84,9 +84,9 @@ export default function ProductCategory() {
 
   const editProductCategory = (rowMap, rowKey) => {
     console.log("edit " + rowKey);
-    // navigation.navigate('Edit Product',{
-    //   id: rowKey
-    // });
+    navigation.navigate('Edit Product Category',{
+      id: rowKey
+    });
   };
   const deleteProductCategory = (rowMap, name, rowKey) => {
     console.log("delete " + rowKey);
