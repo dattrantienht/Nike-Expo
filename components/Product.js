@@ -43,9 +43,8 @@ export default function Product() {
     console.log("useEffect list product fire")
     if(isFocused){
       await getListProduct();
-      setItems(listProduct)
+      setItems(listProduct);
     }
-    
   },[isFocused, mounted]);
 
   const showSuccessToast = (name) => {
@@ -58,7 +57,6 @@ export default function Product() {
   async function requestDeleteProduct(id,name) {
     try {
         const response = await axios.delete('https://api.keyboardslinger.club/api/Products/'+id);
-        listProduct = response.data.data;
         console.log(response.data.data.name + " deleted")
         toggle();
         showSuccessToast(name)
