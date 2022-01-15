@@ -34,10 +34,10 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
 
-        <Image source={{uri: 'https://essenceofemail.com/wp-content/uploads/GIFs-in-email.gif'}} style={{width: 300, height: 130}} />
+        <Image source={{uri: 'https://essenceofemail.com/wp-content/uploads/GIFs-in-email.gif'}} style={{width: 280, height: 110}} />
 
         <Text
-          style={{ textAlign: "center", fontSize: 18, paddingVertical: 30 }}>
+          style={{ textAlign: "center", fontSize: 16, paddingVertical: 15 }}>
         Chúng tôi luôn tiếp nhận mọi phản hồi từ bạn.
         </Text>
 
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    padding: 30,
+    padding: 15,
     backgroundColor: "#F0ECE3"
   },
   input: {
