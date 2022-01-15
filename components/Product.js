@@ -93,7 +93,7 @@ export default function Product() {
     deleteAlert(name,rowKey);
   };
   const onRowDidOpen = rowKey => {
-    console.log('This row opened', rowKey);
+    //console.log('This row opened', rowKey);
   };
   const renderItem = data => (
     <TouchableHighlight
