@@ -72,5 +72,7 @@ export default function Shop() {
       padding: 10,
       marginVertical: 8,
       marginHorizontal: 16,
+      alignItems: 'center', 
+      justifyContent: 'center'
     },
   });
