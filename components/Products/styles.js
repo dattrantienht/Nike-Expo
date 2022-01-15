@@ -56,30 +56,32 @@ const styles = StyleSheet.create({
 
   },
   headerCategory: {
-    alignItems:'center',
+    alignItems: 'center',
     zIndex: 1,
     backgroundColor: 'rgba(255, 255, 255, 1)',
     fontSize: 20,
     flexDirection: "row",
     textAlign: 'center',
-    alignContent:"stretch"
+    alignContent: "stretch",
+    marginLeft: "2%",
+    marginRight: "2%"
   },
   filterButton: {
-    marginLeft:"100px",
+    marginLeft: "100px",
     elevation: 8,
     backgroundColor: 'rgba(255, 255, 255, 1)',
-    alignItems:'center',
-    
+    alignItems: 'center',
+
     paddingVertical: 2,
     paddingHorizontal: 3,
     fontSize: 15,
     color: "#000000",
     fontWeight: "normal",
-   
+
     borderColor: '#cccccc',
     borderWidth: 0.5,
     borderRadius: 20,
-   
+
   },
   banner: {
     fontWeight: 'bold',
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: 20,
   },
-//modal
+  //modal
   centeredView: {
     flex: 1,
     justifyContent: "center",
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
-    alignItems: "flex-start",
+   // alignItems: "flex-start",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -122,6 +124,9 @@ const styles = StyleSheet.create({
   buttonClose: {
     backgroundColor: "#000000",
   },
+  buttonSubmit: {
+    backgroundColor: "rgb(32, 90, 167);",
+  },
   textStyle: {
     color: "white",
     fontWeight: "bold",
@@ -131,13 +136,21 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: "center"
   },
-  headerModal:{
+  headerText: {
     fontWeight: "bold",
-    fontSize:20,
-    marginBottom:"20px"
+    fontSize: 20,
+    marginBottom: "20px"
   },
-  bodyModal:{
-    marginTop:"20px"
+  headerModal:{
+    display: "flex",
+    alignContent: "space-around",
+    flexDirection: "row",
+    alignItems: "stretch",
+    justifyContent: "space-between",
+    alignItems:"center",
+  },
+  bodyModal: {
+    marginTop: "20px"
   }
 });
 
