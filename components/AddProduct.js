@@ -22,7 +22,6 @@ const ProductInput = () => {
     const isFocused = useIsFocused();
     const [categories, setCategories] = useState([]);
     useEffect( async ()=>{
-      console.log("useEffect add product fire")
       await getListCategory();
       if(listCategory.length>0){
           let options = []
