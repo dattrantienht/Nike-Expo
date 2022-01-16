@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet,Text, View, Linking, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Linking, TouchableOpacity } from 'react-native';
 import {SocialIcon} from 'react-native-elements';
 class Footer extends Component{
 	render (){
