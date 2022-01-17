@@ -35,6 +35,7 @@ import shop from './components/Shop';
 import userManage from './components/UserManage';
 import team from './components/Team';
 import chat from './components/Chat';
+import ViewProduct from './components/ViewProduct';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -87,6 +88,18 @@ function CustomDrawerContent(props) {
 }
 
 function StackNav(){
+  const cardStyle = ({ current, layouts }) => ({
+    cardStyle: {
+      transform: [
+        {
+          translateY: current.progress.interpolate({
+            inputRange: [0, 1],
+            outputRange: [layouts.screen.height, 0],
+          }),
+        },
+      ],
+    },
+  })
   return(
     <Stack.Navigator>
       <Stack.Screen name="DrawerNav" component={DrawerNav} options={{headerShown: false}} />
@@ -95,6 +108,26 @@ function StackNav(){
       <Stack.Screen name="Product Category" component={productCategory} />
       <Stack.Screen name="User Manage" component={userManage} />
       <Stack.Screen name="login" component={login} />
+      <Stack.Screen 
+        name="View Shop" 
+        component={shop}
+        options={{
+          headerRight:()=>(
+            <TouchableOpacity
+              style={{marginRight: 10}}
+              onPress={()=>navigation.navigate('View Product')}>
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="View Product"
+        component={ViewProduct}
+        options={{
+          presentation: 'transparentModal',
+          headerShown: false,
+          cardStyleInterpolator: cardStyle,
+        }}/>
     </Stack.Navigator>
   )
 }
