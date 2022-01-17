@@ -4,9 +4,9 @@ import {SocialIcon} from 'react-native-elements';
 class Footer extends Component{
 	render (){
 		return (
-			<View>
+			<View style={{justifyContent:'center', alignItems:'center'}}>
 				<TouchableOpacity onPress={()=>Linking.openURL('https://www.facebook.com/Ninja-In-PyJamas-102421947783975')}>
-          			<Text style={{ fontSize:17,color:'#3E9CFF' }}>                   Find a Store </Text>
+          			<Text style={{ fontSize:17,color:'#3E9CFF' }}> Find a Store </Text>
  				</TouchableOpacity>
               
 			  <View style={{flexDirection: 'row'}}>

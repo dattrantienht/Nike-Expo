@@ -51,24 +51,20 @@ export default function Shop() {
   },[isFocused]);
 
   return (
-    <ScrollView>
-      <SafeAreaView style ={[styles.container,{backgroundColor:colors.background}]}>
+    <SafeAreaView style ={[styles.container,{backgroundColor:colors.background}]}>
       <StatusBar/>
-      <Slide/>
 
       <FlatList
+        ListHeaderComponent={() => (<Slide/>)}
+        ListFooterComponent={() => (<Footer/>)}
         slide={slide}
         data={items}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         numColumns={2}
       />
-      
-     <View> 
-      <Footer/>
-    </View>
-      </SafeAreaView>
-    </ScrollView> 
+
+    </SafeAreaView>
   );
 }
   
