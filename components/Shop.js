@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { StatusBar, StyleSheet, Image, Text, View, FlatList } from 'react-native';
+import { StatusBar, StyleSheet, Image, Text, View, FlatList, ScrollView, SafeAreaView } from 'react-native';
 import { useTheme, useIsFocused } from '@react-navigation/native';
 import Footer from './Footer';
+import Slide from './Slide';
+
 let listProduct;
 
 async function getListProduct() {
@@ -30,6 +32,8 @@ const Product = ({colors, name, price, image }) => (
   </View>
 );
 
+
+
 export default function Shop() {
   const { colors } = useTheme();
   const isFocused = useIsFocused();
@@ -37,23 +41,34 @@ export default function Shop() {
   const renderItem = ({ item }) => (
     <Product colors={colors} name={item.name} price={item.price} image={item.image} />
   );
-
+  const slide =(
+    <Image  source={{uri: 'https://cdn.dribbble.com/users/1960903/screenshots/7229988/nike_banner.gif'}} style={{width: 350, height: 200}}/>
+  )
+  
   useEffect( async ()=>{
     await getListProduct();
     setItems(listProduct)
   },[isFocused]);
 
   return (
-    <View style={[styles.container,{backgroundColor:colors.background}]}>
+    <ScrollView>
+      <SafeAreaView style ={[styles.container,{backgroundColor:colors.background}]}>
       <StatusBar/>
+      <Slide/>
+
       <FlatList
+        slide={slide}
         data={items}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         numColumns={2}
       />
+      
+     <View> 
       <Footer/>
     </View>
+      </SafeAreaView>
+    </ScrollView> 
   );
 }
   
