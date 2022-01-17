@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { StatusBar, StyleSheet, Image, Text, View, FlatList, TouchableHighlight, TextInput } from 'react-native';
+import { StatusBar, StyleSheet, Image, Text, View, FlatList, TouchableHighlight, TextInput, SafeAreaView } from 'react-native';
 import { useTheme, useIsFocused, useNavigation } from '@react-navigation/native';
 import Footer from './Footer';
 import Slide from './Slide';
