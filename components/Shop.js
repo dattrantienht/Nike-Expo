@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { StatusBar, StyleSheet, Image, Text, View, FlatList, TouchableHighlight, Touchable } from 'react-native';
+import { StatusBar, StyleSheet, Image, Text, View, FlatList, TouchableHighlight, TextInput } from 'react-native';
 import { useTheme, useIsFocused, useNavigation } from '@react-navigation/native';
 import Footer from './Footer';
 let listProduct;
@@ -29,6 +29,9 @@ export default function Shop() {
   );
   const navigation = useNavigation();
 
+  const [search, setSearch] = useState('');
+  const [masterDataSource, setMasterDataSource] = useState([]);
+
 const viewProduct = (id) => {
   navigation.navigate('View Product',{id: id});
 }
@@ -47,12 +50,37 @@ const Product = ({colors, id, name, price, image }) => (
 
   useEffect( async ()=>{
     await getListProduct();
-    setItems(listProduct)
+    setItems(listProduct);
+    setMasterDataSource(listProduct);
   },[isFocused]);
+
+  const searchFilterFunction = (text) => {
+    if (text) {
+      const newData = masterDataSource.filter(function (item) {
+        const itemData = item.name
+          ? item.name
+          : '';
+        const textData = text;
+        return itemData.indexOf(textData) > -1;
+      });
+      setItems(newData);
+      setSearch(text);
+    } else {
+      setItems(masterDataSource);
+      setSearch(text);
+    }
+  };
 
   return (
     <View style={[styles.container,{backgroundColor:colors.background}]}>
       <StatusBar/>
+      <TextInput
+          style={styles.textInputStyle}
+          onChangeText={(text) => searchFilterFunction(text)}
+          value={search}
+          underlineColorAndroid="transparent"
+          placeholder="Search Product Here"
+        />
       <FlatList
         data={items}
         renderItem={renderItem}
@@ -66,19 +94,13 @@ const Product = ({colors, id, name, price, image }) => (
   
   const styles = StyleSheet.create({
     container: {flex: 1, alignItems: 'center', justifyContent: 'center'},
-    text:{
-      fontSize:18,
-    },
-    productName:{
-      fontSize: 18
-    },
+    text:{ fontSize:18, },
+    productName:{ fontSize: 18 },
     productImage: {
       width: 120,
       height: 130,
     },
-    productPrice:{
-      fontSize: 18
-    },
+    productPrice:{ fontSize: 18 },
     item: {
       width: 160,
       height: 200,
@@ -87,5 +109,15 @@ const Product = ({colors, id, name, price, image }) => (
       marginHorizontal: 16,
       alignItems: 'center', 
       justifyContent: 'center'
+    },
+    itemStyle: { padding: 10, },
+    textInputStyle: {
+      height: 40,
+      width: 320,
+      borderWidth: 1,
+      paddingLeft: 20,
+      margin: 5,
+      borderColor: '#009688',
+      backgroundColor: '#FFFFFF',
     },
   });
