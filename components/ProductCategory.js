@@ -1,111 +1,214 @@
-import React,{ useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View, Button, TouchableHighlight, SafeAreaView, TextInput } from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import { 
+  StyleSheet, 
+  Image, 
+  Text, 
+  View, 
+  TouchableOpacity, 
+  TouchableHighlight, 
+  Dimensions,
+  Alert,
+} from 'react-native';
+import {useTheme, useNavigation, useIsFocused} from '@react-navigation/native';
+import { SwipeListView } from 'react-native-swipe-list-view';
+import Toast from 'react-native-toast-message';
 
-let categories;
-async function getCategory(){
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+
+import catPeak from '../assets/catPeak.png'
+
+var {height, width} = Dimensions.get('window');
+let listProductCategory;
+
+async function getListProductCategory() {
   try {
-    await axios.get('https://api.keyboardslinger.club/api/ProductCategories',{ })
-    .then(response => {
-        categories = response.data.data;
-        console.log('GET DATA SUCCESS');
-      })
-    return categories;
+      const response = await axios.get('https://api.keyboardslinger.club/api/ProductCategories');
+      listProductCategory = response.data.data;
   } catch (error) {
-    console.error(error);
+      console.error(error);
   }
 }
 
-async function DeleteCategory(id){
-  let url = 'https://api.keyboardslinger.club/api/ProductCategories/'+id;
-  try{
-    await axios.delete(url,{ })
-    .then(response => {
-        console.log('Delete Success');
-    })
-  }catch(error){
-    console.log('error');
-  }
-}
-
-async function AddCategory(nameCategory){
-  if(nameCategory != null){ 
-      try {
-              const response = await axios.post('https://api.keyboardslinger.club/api/ProductCategories',{
-                  name: nameCategory
-              });
-              console.log(response.data);
-          }catch (error) {
-              console.error(error);
-          }
-      }
-  }
-  
-  const InputCategory = () => {
-      const { color } = useTheme();
-      const [nameCategory, setNameCategory] = React.useState(null);
-  
-      return (
-          <SafeAreaView style={{flexDirection:'row'}}>
-              <TextInput
-                  style={[styles.input]}
-                  onChangeText={text => setNameCategory(text)}
-                  value={nameCategory}
-                  placeholder="Name Category"
-              />
-              <Button
-                  onPress={() => AddCategory(nameCategory)}
-                  title="Add new"
-              />
-          </SafeAreaView>
-      );
-  };
-
-export default function ProductCategory(props) {
+export default function ProductCategory() {
   const { colors } = useTheme();
-  const [dataCategory, setDataCategory] = useState([]);
-  const [checked, setChecked] = useState(true);
-  const toggle = () => setChecked(!checked);
-
-  useEffect(async()=>{
-    setDataCategory(await getCategory());
-    return []
-  }, [checked]);
+  const isFocused = useIsFocused();
+  const navigation = useNavigation();
+  const [mounted, setMounted] = useState(true);
+  const toggle = () => setMounted(!mounted);
+  const [items, setItems] = useState([]);
   
-  const renderCategory = ({ item }) => (
-    <TouchableHighlight onPress={() => toggle()}>
-      <View style={{flexDirection:'row'}}>
-        <Text style={{color: '#ffffff',width: 250}}>{item.name}</Text>
-        <Button title='Edit' />
-        <Button title='Delete' color="#ff0000" onPress={() => DeleteCategory(item.id)}/>
-      </View>
+  useEffect( async ()=>{
+    if(isFocused){
+      await getListProductCategory();
+      setItems(listProductCategory);
+    }
+  },[isFocused, mounted]);
+
+  const showSuccessToast = (name) => {
+    Toast.show({
+      type: 'success',
+      text1: 'Product category ' + name + ' deleted.'
+    });
+  }
+
+  async function requestDeleteProductCategory(id,name) {
+    try {
+        const response = await axios.delete('https://api.keyboardslinger.club/api/ProductCategories/'+id);
+        console.log(response.data.data.name + " deleted")
+        toggle();
+        showSuccessToast(name)
+    } catch (error) {
+        console.error(error);
+    }
+  }
+
+  const deleteAlert = (name,id) =>
+  Alert.alert(
+    "Confirm",
+    "Are you sure you want to delete category " + name + " and all of it's products?",
+    [
+      {
+        text: "No",
+        style: "cancel"
+      },
+      { text: "Yes", onPress: () => {
+        requestDeleteProductCategory(id,name);
+      }}
+    ],
+    {
+      cancelable: true,
+    }
+  );
+
+  const editProductCategory = (rowMap, rowKey) => {
+    console.log("edit " + rowKey);
+    navigation.navigate('Edit Product Category',{
+      id: rowKey
+    });
+  };
+  const deleteProductCategory = (rowMap, name, rowKey) => {
+    console.log("delete " + rowKey);
+    deleteAlert(name,rowKey);
+  };
+  const onRowDidOpen = rowKey => {
+    //console.log('This row opened', rowKey);
+  };
+  const renderItem = data => (
+    <TouchableHighlight
+        onPress={() => console.log('You touched ' + data.item.id)}
+        style={[styles.rowFront,{
+          backgroundColor:colors.background,
+          borderBottomColor: colors.border
+        }]}
+        underlayColor={'#9B59B6'}
+    >
+        <View style={[styles.productRow,]}>
+          <Text style={[styles.productName,{color:colors.text}]}> {data.item.name} </Text>
+        </View>
     </TouchableHighlight>
+  );
+  const renderHiddenItem = (data, rowMap) => (
+    <View style={styles.rowBack}>
+        <Image style={styles.backLeftImage} source={catPeak} /> 
+        <TouchableOpacity
+            style={[styles.backRightBtn, styles.backRightBtnLeft]}
+            onPress={() => editProductCategory(rowMap, data.item.id)}
+        >
+            
+            <MaterialCommunityIcons name="database-edit" size={35} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity
+            style={[styles.backRightBtn, styles.backRightBtnRight]}
+            onPress={() => {deleteProductCategory(rowMap, data.item.name, data.item.id)}}
+        >
+            
+            <MaterialCommunityIcons name="delete-circle" size={35} color="black" />
+        </TouchableOpacity>
+    </View>
   );
     return (
       <View style={[styles.container,{backgroundColor:colors.background}]}>
-        <Text style={[styles.text,{color:colors.text}]}>Product Category Screen</Text>
-        <InputCategory/>
-        <FlatList data={dataCategory} 
-                  renderItem={renderCategory} 
-                  keyExtractor={(item) => item.id}
-                  horizontal={false}
-                  scrollEnabled={true}
-                  numColumns={1}
-                  showsVerticalScrollIndicator={false}
-                  showsHorizontalScrollIndicator={false}
+        <SwipeListView
+          keyExtractor={(rowData)=>{
+            return rowData.id;
+          }}
+          data={items}
+          renderItem={renderItem}
+          renderHiddenItem={renderHiddenItem}
+          leftOpenValue={75}
+          rightOpenValue={-150}
+          previewRowKey={'0'}
+          previewOpenValue={-40}
+          previewOpenDelay={3000}
+          onRowDidOpen={onRowDidOpen}
         />
       </View>
     );
-  }
+
+}
   
   const styles = StyleSheet.create({
     container: {flex: 1, alignItems: 'center', justifyContent: 'center'},
     text:{
       fontSize:18,
     },
-    input:{
-      fontSize:15, fontWeight:'bold', color:'#000000',backgroundColor:'#ffffff',
-      width: 300,
-    }
+    backTextWhite: {
+      color: '#FFF',
+    },
+    productRow:{
+      flex:1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'row',
+    },
+    productImage: {
+      width: 60,
+      height: 70,
+      position: 'absolute',
+      left:10
+    },
+    productName:{
+      fontSize:15,
+    },
+    rowFront: {
+      alignItems: 'center',
+      borderBottomColor: 'black',
+      borderBottomWidth: 1,
+      flex: 1,
+      flexDirection: 'row',
+      width:width,
+      height: 80
+    },
+    rowBack: {
+      alignItems: 'center',
+      backgroundColor: '#DDD',
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingLeft: 15,
+      height: 80,
+    },
+    backLeftImage:{
+      width: 60, 
+      height: 70,
+      position: 'absolute',
+    },
+    backRightBtn: {
+      alignItems: 'center',
+      bottom: 0,
+      justifyContent: 'center',
+      position: 'absolute',
+      top: 0,
+      width: 75,
+      height: 80
+    },
+    backRightBtnLeft: {
+      backgroundColor: '#58D68D',
+      right: 75,
+    },
+    backRightBtnRight: {
+      backgroundColor: '#EC7063',
+      right: 0,
+    },
   });
