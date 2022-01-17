@@ -46,6 +46,7 @@ import addProduct from './components/AddProduct'
 import EditProduct from './components/EditProduct';
 import AddProductCategory from './components/AddProductCategory';
 import EditProductCategory from './components/EditProductCategory';
+import ViewProduct from './components/ViewProduct';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -189,6 +190,26 @@ function StackNav(){
       />
       <Stack.Screen name="User Manage" component={userManage} />
       <Stack.Screen name="login" component={login} />
+      <Stack.Screen 
+        name="View Shop" 
+        component={shop}
+        options={{
+          headerRight:()=>(
+            <TouchableOpacity
+              style={{marginRight: 10}}
+              onPress={()=>navigation.navigate('View Product')}>
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="View Product"
+        component={ViewProduct}
+        options={{
+          presentation: 'transparentModal',
+          headerShown: false,
+          cardStyleInterpolator: cardStyle,
+        }}/>
     </Stack.Navigator>
   )
 }
