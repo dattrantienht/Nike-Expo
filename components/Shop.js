@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { StatusBar, StyleSheet, Image, Text, View, FlatList } from 'react-native';
-import { useTheme, useIsFocused } from '@react-navigation/native';
+import { StatusBar, StyleSheet, Image, Text, View, FlatList, TouchableHighlight, Touchable } from 'react-native';
+import { useTheme, useIsFocused, useNavigation } from '@react-navigation/native';
 import Footer from './Footer';
 let listProduct;
 
@@ -20,23 +20,30 @@ const format = amount => {
     .replace(/\d(?=(\d{3})+\.)/g, '$&,');
 };
 
-const Product = ({colors, name, price, image }) => (
-  <View style={[styles.item,{backgroundColor:colors.background}]}>
-    <Text style={[styles.productName,{color:colors.text}]}>{name}</Text>
-    <Image
-      style={styles.productImage}
-      source={{uri: image}}/>
-    <Text style={[styles.productPrice,{color:colors.text}]}>₫ {format(price)}</Text>
-  </View>
-);
-
 export default function Shop() {
   const { colors } = useTheme();
   const isFocused = useIsFocused();
   const [items, setItems] = useState([]);
   const renderItem = ({ item }) => (
-    <Product colors={colors} name={item.name} price={item.price} image={item.image} />
+    <Product colors={colors} id={item.id} name={item.name} price={item.price} image={item.image} />
   );
+  const navigation = useNavigation();
+
+const viewProduct = (id) => {
+  navigation.navigate('View Product',{id: id});
+}
+
+const Product = ({colors, id, name, price, image }) => (
+  <TouchableHighlight onPress={()=> viewProduct(id)}>
+    <View style={[styles.item,{backgroundColor:colors.background}]}>
+      <Text style={[styles.productName,{color:colors.text}]}>{name}</Text>
+      <Image
+        style={styles.productImage}
+        source={{uri: image}}/>
+      <Text style={[styles.productPrice,{color:colors.text}]}>₫ {format(price)}</Text>
+    </View>
+  </TouchableHighlight>
+);
 
   useEffect( async ()=>{
     await getListProduct();

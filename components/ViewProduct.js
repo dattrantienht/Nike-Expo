@@ -1,6 +1,6 @@
 import React,  {useEffect, useState} from 'react';
 import axios from 'axios';
-import { SafeAreaView, StyleSheet, Text, View, TextInput, Button, TouchableOpacity, Image } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Button, Image } from 'react-native';
 import {useTheme, useNavigation, useIsFocused} from '@react-navigation/native';
 
 let productData;
