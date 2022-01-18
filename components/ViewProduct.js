@@ -14,6 +14,12 @@ async function getProductData(id) {
     }
   }
 
+  const format = amount => {
+    return Number(amount)
+      .toFixed(1)
+      .replace(/\d(?=(\d{3})+\.)/g, '$&.');
+  };
+
 export default function ViewProduct({route}) {
   const { colors } = useTheme();
   const navigation = useNavigation();
@@ -56,7 +62,7 @@ export default function ViewProduct({route}) {
             <Image
                 style={styles.productImage}
                 source={{uri: productImage}}/>
-            <Text style={[styles.text,{borderColor:colors.border, color:colors.text}]}>Price: {productPrice}  VND</Text>
+            <Text style={[styles.text,{borderColor:colors.border, color:colors.text}]}>Price: {format(productPrice)}  VND</Text>
             <Text></Text>
             <View style={styles.buttonRow}>
                 <Button
