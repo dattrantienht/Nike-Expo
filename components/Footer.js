@@ -8,7 +8,9 @@ class Footer extends Component{
 				<TouchableOpacity onPress={()=>Linking.openURL('https://www.facebook.com/Ninja-In-PyJamas-102421947783975')}>
           			<Text style={{ fontSize:17,color:'#3E9CFF' }}>                   Find a Store </Text>
  				</TouchableOpacity>
-              
+				 <TouchableOpacity onPress={()=>Linking.openURL('https://www.facebook.com/Ninja-In-PyJamas-102421947783975')}>
+          			<Text style={{ fontSize:17,color:'#3E9CFF' }}>                   * Become A Member * </Text>
+ 				</TouchableOpacity>
 			  <View style={{flexDirection: 'row'}}>
                 <SocialIcon
                   type="facebook"
