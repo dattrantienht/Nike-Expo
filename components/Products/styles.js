@@ -18,9 +18,9 @@ const styles = StyleSheet.create({
 
   },
   productsPhoto: {
-    marginTop:10,
-    marginBottom:10,
-    alignSelf:"center",
+    marginTop: 10,
+    marginBottom: 10,
+    alignSelf: "center",
     width: '90%',
     height: 155,
     borderRadius: 20,
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 5,
     shadowOpacity: 1.0,
-   
+
   },
   productsName: {
     flex: 1,
@@ -54,14 +54,13 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   productCategory: {
-position:'absolute',
-fontSize:18,
-paddingTop:5
+position:"absolute",
+    fontSize: 18,
+    paddingTop: 5
   },
   headerCategory: {
-    
-    alignSelf:"center",
-    alignItems: 'center',
+
+
     zIndex: 1,
     backgroundColor: 'rgba(255, 255, 255, 1)',
     fontSize: 20,
@@ -136,7 +135,7 @@ paddingTop:5
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
-    
+
   },
   modalText: {
     marginBottom: 15,
@@ -172,10 +171,10 @@ paddingTop:5
     fontWeight: 'bold'
 
   },
-  hr:{
+  hr: {
     borderBottomColor: "#000000",
     borderBottomWidth: 1,
-     alignSelf: 'stretch'
+    alignSelf: 'stretch'
   }
 });
 

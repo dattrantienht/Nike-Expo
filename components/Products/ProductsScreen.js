@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useTheme } from '@react-navigation/native';
-import { Modal, FlatList, Text, View, Image, TouchableHighlight, Pressable, LogBox } from "react-native";
+import { Modal, FlatList, Text, View, Image, TouchableHighlight, Pressable, LogBox, StatusBar } from "react-native";
 
-import {  RadioButton } from 'react-native-paper';
+import { RadioButton } from 'react-native-paper';
 import styles from "./styles";
 import axios from 'axios';
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
@@ -49,9 +49,10 @@ export default function ProductsScreen() {
           } />
         <Text style={[styles.productsName, { color: colors.text }]}>{item.name}</Text>
         <Text style={[styles.productsName, { color: colors.text }]}>
-        
-        
-          {item.price} VND
+          {
+            numberWithCommas(item.price)
+          }
+          VND
         </Text>
       </View>
     </TouchableHighlight>
@@ -117,16 +118,20 @@ export default function ProductsScreen() {
   useEffect(() => {
     LogBox.ignoreAllLogs();
   }, [])
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   return (
     <>
       <ScrollView showsHorizontalScrollIndicator={false}
-        stickyHeaderIndices={[1]} >
- 
+        stickyHeaderIndices={[2]} >
+        <StatusBar />
         <View style={styles.banner} >
           <Banner />
         </View>
         <View style={styles.headerCategory}>
-          <Text style={styles.productCategory}>{CategoryName} ({numberProducts})  {currentSort}</Text>
+          <Text style={styles.productCategory}>{CategoryName} ({numberProducts})
+            {currentSort}</Text>
           <Pressable
             style={[styles.button, styles.buttonOpen,
             { marginLeft: "auto" }
@@ -141,23 +146,21 @@ export default function ProductsScreen() {
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
-
             setModalVisible(!modalVisible);
           }}
         >
-
           <View style={styles.modalView}>
             <View style={styles.headerModal}
             >
               <Text style={styles.headerText}>Filter</Text>
               {isFilter &&
-              <Pressable
-              style={[styles.button, styles.buttonSubmit]}
-              onPress={() => (resetFilter())}
-            >
-              <Text style={[styles.textStyle]}>Reset filter</Text>
-            </Pressable>}
-              
+                <Pressable
+                  style={[styles.button, styles.buttonSubmit]}
+                  onPress={() => (resetFilter())}
+                >
+                  <Text style={[styles.textStyle]}>Reset filter</Text>
+                </Pressable>}
+
               <Pressable
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => setModalVisible(!modalVisible)}
@@ -167,22 +170,25 @@ export default function ProductsScreen() {
             </View>
 
             <View style={styles.bodyModal}>
-              
-                <Pressable
-                  style={[styles.button, styles.buttonSubmit]}
-                  onPress={() => { handleSubmit(), setModalVisible(!modalVisible) }}
-                >
-                  <Text style={styles.textStyle}>Submit</Text>
-                </Pressable>
-              
+
+              <Pressable
+                style={[styles.button, styles.buttonSubmit]}
+                onPress={() => { handleSubmit(), setModalVisible(!modalVisible) }}
+              >
+                <Text style={styles.textStyle}>Submit</Text>
+              </Pressable>
+
               <Text>Sort By</Text>
               {
                 radio_props.map((obj, { i = obj.value }) => (
-                  <View key={i} style={{ marginTop: 20, flexDirection: "row",alignItems:'center' }}>
+                  <View key={i} style={{ marginTop: 20, flexDirection: "row", alignItems: 'center' }}>
                     <RadioButton
                       value={i}
                       status={checked === i ? 'checked' : 'unchecked'}
-                      onPress={() => { setChecked(obj.value), setNumberSort(obj.value), setIsFilter(true) }}
+                      onPress={() => {
+                        setChecked(obj.value), setNumberSort(obj.value),
+                          setIsFilter(true)
+                      }}
                     /><Text>{obj.label}</Text>
                   </View>
                 ))
@@ -195,7 +201,7 @@ export default function ProductsScreen() {
               <Text>ProductCategory</Text>
               {
                 listProductCategories.map((obj, { i = obj.id }) => (
-                  <View key={i} style={{ marginTop: 20, flexDirection: "row",alignItems:'center' }}>
+                  <View key={i} style={{ marginTop: 20, flexDirection: "row", alignItems: 'center' }}>
                     <RadioButton
                       value={i}
                       status={checkedCategory === i ? 'checked' : 'unchecked'}
@@ -215,7 +221,7 @@ export default function ProductsScreen() {
           datas.length > 0 ? <View>
 
             <FlatList data={datas} renderItem={renderProducts} keyExtractor={(item) => item.id}
-            scrollEnabled={false}
+              scrollEnabled={false}
               horizontal={false}
               scrollEnabled={false}
               numColumns={2}
