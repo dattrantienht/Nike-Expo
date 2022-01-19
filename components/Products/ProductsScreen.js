@@ -1,31 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { useTheme } from '@react-navigation/native';
-import { Modal, FlatList, Text, View, Image, TouchableHighlight, Button, Pressable } from "react-native";
-import RadioForm from 'react-native-simple-radio-button';
-import { RadioButton } from 'react-native-paper';
+import { Modal, FlatList, Text, View, Image, TouchableHighlight, Pressable, LogBox } from "react-native";
+
+import {  RadioButton } from 'react-native-paper';
 import styles from "./styles";
 import axios from 'axios';
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import NumberFormat from 'react-number-format';
+
 import { Ionicons } from '@expo/vector-icons';
-import Footer from "../Footer";
+import Footer from "./Footer";
+import Banner from "./Banner";
 let products;
 let allProducts = [];
 let datasFilter;
-const imgLink = 'https://dictionary.cambridge.org/images/thumb/tree_noun_001_18152.jpg?version=5.0.203';
+
 async function getProduct() {
   try {
     await axios.get('https://api.keyboardslinger.club/api/Products')
       .then(response => {
         products = response.data.data;
         allProducts = products;
+        console.log(allProducts);
       })
     return products;
   } catch (error) {
     console.error(error);
   }
 }
-export default function ProductsScreen(props) {
+export default function ProductsScreen() {
   const { colors } = useTheme();
   const [datas, setDatas] = useState([]);
   const [listProductCategories, setListProductCategories] = useState([]);
@@ -46,17 +48,11 @@ export default function ProductsScreen(props) {
             { uri: item.image }
           } />
         <Text style={[styles.productsName, { color: colors.text }]}>{item.name}</Text>
-        <NumberFormat
-          style={{ color: colors.text }}
-          thousandsGroupStyle="thousand"
-          value={item.price}
-          prefix="VND "
-          decimalSeparator="."
-          displayType="text"
-          type="text"
-          thousandSeparator={true}
-          allowNegative={true}
-        />
+        <Text style={[styles.productsName, { color: colors.text }]}>
+        
+        
+          {item.price} VND
+        </Text>
       </View>
     </TouchableHighlight>
   );
@@ -118,39 +114,50 @@ export default function ProductsScreen(props) {
     setCategoryName("AllProductCategory");
     setIsFilter(false)
   }
+  useEffect(() => {
+    LogBox.ignoreAllLogs();
+  }, [])
   return (
-    <ScrollView showsHorizontalScrollIndicator={false}
-      stickyHeaderIndices={[1]} >
-      <Text style={styles.banner} >Banner</Text>
-      <View style={styles.headerCategory}>
-        <Text style={styles.productCategory}>{CategoryName} ({numberProducts})  {currentSort}</Text>
-        <Pressable
-          style={[styles.button, styles.buttonOpen, { marginLeft: "auto" }]}
-          onPress={() => handleFilter()}
+    <>
+      <ScrollView showsHorizontalScrollIndicator={false}
+        stickyHeaderIndices={[1]} >
+ 
+        <View style={styles.banner} >
+          <Banner />
+        </View>
+        <View style={styles.headerCategory}>
+          <Text style={styles.productCategory}>{CategoryName} ({numberProducts})  {currentSort}</Text>
+          <Pressable
+            style={[styles.button, styles.buttonOpen,
+            { marginLeft: "auto" }
+            ]}
+            onPress={() => handleFilter()}
+          >
+            <Text style={styles.textStyle}>Filter <Ionicons style={{ paddingLeft: "5px" }} name="filter-outline" size={20} color="black" /></Text>
+          </Pressable>
+        </View>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+
+            setModalVisible(!modalVisible);
+          }}
         >
-          <Text style={styles.textStyle}>Filter <Ionicons style={{ paddingLeft: "5px" }} name="filter-outline" size={20} color="black" /></Text>
-        </Pressable>
-      </View>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <ScrollView >
+
           <View style={styles.modalView}>
             <View style={styles.headerModal}
             >
               <Text style={styles.headerText}>Filter</Text>
+              {isFilter &&
               <Pressable
-                style={[styles.button, styles.buttonSubmit]}
-                onPress={() => (handleSubmit(), setModalVisible(!modalVisible))}
-              >
-                <Text style={[styles.textStyle]}>Submit</Text>
-              </Pressable>
+              style={[styles.button, styles.buttonSubmit]}
+              onPress={() => (resetFilter())}
+            >
+              <Text style={[styles.textStyle]}>Reset filter</Text>
+            </Pressable>}
+              
               <Pressable
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => setModalVisible(!modalVisible)}
@@ -160,18 +167,18 @@ export default function ProductsScreen(props) {
             </View>
 
             <View style={styles.bodyModal}>
-              {isFilter &&
+              
                 <Pressable
                   style={[styles.button, styles.buttonSubmit]}
-                  onPress={() => { resetFilter() }}
+                  onPress={() => { handleSubmit(), setModalVisible(!modalVisible) }}
                 >
-                  <Text style={styles.textStyle}>Reset filter</Text>
+                  <Text style={styles.textStyle}>Submit</Text>
                 </Pressable>
-              }
+              
               <Text>Sort By</Text>
               {
                 radio_props.map((obj, { i = obj.value }) => (
-                  <View key={i} style={{ marginTop: 20, flexDirection: "row", }}>
+                  <View key={i} style={{ marginTop: 20, flexDirection: "row",alignItems:'center' }}>
                     <RadioButton
                       value={i}
                       status={checked === i ? 'checked' : 'unchecked'}
@@ -182,49 +189,49 @@ export default function ProductsScreen(props) {
               }
             </View>
             <View
-              style={{
-                borderBottomColor: "#000000",
-                borderBottomWidth: "1px",
-                alignSelf: 'stretch'
-              }}
+              style={styles.hr}
             />
             <View style={styles.bodyModal}>
               <Text>ProductCategory</Text>
               {
                 listProductCategories.map((obj, { i = obj.id }) => (
-                  <View key={i} style={{ marginTop: 20, flexDirection: "row", }}>
+                  <View key={i} style={{ marginTop: 20, flexDirection: "row",alignItems:'center' }}>
                     <RadioButton
                       value={i}
                       status={checkedCategory === i ? 'checked' : 'unchecked'}
                       onPress={e => { setcheckedCategory(obj.id), setIsFilter(true) }}
                     /><Text>{obj.name}</Text>
                     <View
-                      style={{
-                        borderBottomColor: "#000000",
-                        borderBottomWidth: "1px",
-                        alignSelf: 'stretch'
-                      }}
+                      style={styles.hr}
                     />
                   </View>
                 ))
               }
             </View>
           </View>
-        </ScrollView>
-      </Modal>
-      {
-        datas.length > 0 ?
-          <FlatList data={datas} renderItem={renderProducts} keyExtractor={(item) => item.id}
-            horizontal={false}
-            scrollEnabled={true}
-            numColumns={2}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-          /> :
-          <View>
-            <Text style={{ fontSize: 30, fontWeight: 'bold' }}>No Products</Text>
-          </View>}
-      <Footer />
-    </ScrollView>
+
+        </Modal>
+        {
+          datas.length > 0 ? <View>
+
+            <FlatList data={datas} renderItem={renderProducts} keyExtractor={(item) => item.id}
+            scrollEnabled={false}
+              horizontal={false}
+              scrollEnabled={false}
+              numColumns={2}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+            />
+          </View>
+            :
+            <View>
+              <Image style={styles.productsPhoto}
+                source={
+                  { uri: "https://kellysearch.co.in/assets/images/pnf.jpg" }
+                } />
+            </View>}
+        <Footer />
+      </ScrollView>
+    </>
   );
 }

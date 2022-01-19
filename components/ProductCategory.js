@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import { useTheme } from '@react-navigation/native';
 import axios from 'axios';
 
 export let productCategory;
@@ -26,12 +26,12 @@ async function getProduct() {
 }
 
 const renderProducts = ({ item }) => (
-    <View >
-     
-      <Text >{item.name}</Text>
-      
-    </View>
-  );
+  <View >
+
+    <Text >{item.name}</Text>
+
+  </View>
+);
 export default function ProductCategory() {
   const { colors } = useTheme();
   const [datas, setDatas] = useState([]);
@@ -40,23 +40,14 @@ export default function ProductCategory() {
     return []
   }, []);
 
-    return (
-      productCategory
-      // <View style={[styles.container,{backgroundColor:colors.background}]}>
-      //   <FlatList data={datas} renderItem={renderProducts} keyExtractor={(item) => item.id}
-      //   horizontal={false}
-      //   scrollEnabled={true}
-      //   numColumns={2}
-      //   showsVerticalScrollIndicator={false}
-      //   showsHorizontalScrollIndicator={false}
-      // />
-      // </View>
-    );
+  return (
+    productCategory
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  text: {
+    fontSize: 18,
   }
-  
-  const styles = StyleSheet.create({
-    container: {flex: 1, alignItems: 'center', justifyContent: 'center'},
-    text:{
-      fontSize:18,
-    }
-  });
+});

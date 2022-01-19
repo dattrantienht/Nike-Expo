@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions, ImageBackground } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 
 const { width } = Dimensions.get('window');
@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     margin: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    height: 215,
+    height: 'auto',
     width: productWidth,
     borderColor: '#cccccc',
     borderWidth: 0.5,
@@ -18,11 +18,12 @@ const styles = StyleSheet.create({
 
   },
   productsPhoto: {
+    marginTop:10,
+    marginBottom:10,
+    alignSelf:"center",
     width: '90%',
     height: 155,
     borderRadius: 20,
-    // borderBottomLeftRadius: 0,
-    // borderBottomRightRadius: 0,
     shadowColor: 'blue',
     shadowOffset: {
       width: 0,
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 5,
     shadowOpacity: 1.0,
-    elevation: 3
+   
   },
   productsName: {
     flex: 1,
@@ -53,9 +54,13 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   productCategory: {
-
+position:'absolute',
+fontSize:18,
+paddingTop:5
   },
   headerCategory: {
+    
+    alignSelf:"center",
     alignItems: 'center',
     zIndex: 1,
     backgroundColor: 'rgba(255, 255, 255, 1)',
@@ -91,7 +96,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: 20,
   },
-  //modal
+
   centeredView: {
     flex: 1,
     justifyContent: "center",
@@ -103,8 +108,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
-   // alignItems: "flex-start",
-    shadowColor: "#000",
+
+    shadowColor: 'rgba(255, 255, 255, 1)',
     shadowOffset: {
       width: 0,
       height: 2
@@ -130,7 +135,8 @@ const styles = StyleSheet.create({
   textStyle: {
     color: "white",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
+    
   },
   modalText: {
     marginBottom: 15,
@@ -139,18 +145,37 @@ const styles = StyleSheet.create({
   headerText: {
     fontWeight: "bold",
     fontSize: 20,
-    marginBottom: "20px"
+    marginBottom: 20
   },
-  headerModal:{
+  headerModal: {
     display: "flex",
     alignContent: "space-around",
     flexDirection: "row",
     alignItems: "stretch",
     justifyContent: "space-between",
-    alignItems:"center",
+    alignItems: "center",
   },
   bodyModal: {
-    marginTop: "20px"
+    marginTop: 20
+  },
+  footer: {
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    color: 'rgba(255, 255, 255, 1)'
+  },
+  footerContext: {
+    paddingTop: 30,
+    paddingLeft: 30
+  },
+  footertext: {
+    color: 'rgba(255, 255, 255, 1)',
+    fontSize: 20,
+    fontWeight: 'bold'
+
+  },
+  hr:{
+    borderBottomColor: "#000000",
+    borderBottomWidth: 1,
+     alignSelf: 'stretch'
   }
 });
 
