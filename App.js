@@ -25,6 +25,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
 import nike from './assets/nike.png'
+import nikeColor from './assets/nikeColor.png'
 import mycat from './assets/mycat.png'
 
 import login from './components/Login';
@@ -59,7 +60,7 @@ function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.container}>
-      <Image source={mycat} style={{ width: 210, height: 200, marginBottom: 20 }} />
+      <Image source={nikeColor} style={{ width: 200, height: 100, marginBottom: 20, marginTop: 10 }} />
         <Text style={[styles.text,{color:colors.text}]}> </Text>
       </View>
       
