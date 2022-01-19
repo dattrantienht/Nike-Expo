@@ -119,7 +119,6 @@ function StackNav(){
     },
   })
 
-  
   return(
     <Stack.Navigator>
       <Stack.Screen name="DrawerNav" component={DrawerNav} options={{headerShown: false}} />
